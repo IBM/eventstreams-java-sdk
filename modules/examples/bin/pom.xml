@@ -1,0 +1,65 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>eventstreams-sdk</artifactId>
+        <groupId>com.ibm.cloud</groupId>
+        <version>99-SNAPSHOT</version>
+        <relativePath>../..</relativePath>
+    </parent>
+
+    <artifactId>adminrest-examples</artifactId>
+    <packaging>jar</packaging>
+    <name>Event Streams Java SDK Code Examples</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>eventstreams_sdk</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <developers>
+        <developer>
+            <name>IBM Cloud Event Streams SDK Development</name>
+            <email>devxsdk@us.ibm.com</email>
+            <url>https://www.ibm.com/</url>
+        </developer>
+    </developers>
+
+    <build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>com.ibm.cloud.adminrest.v1.AdminrestExample</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+	</build>
+</project>
