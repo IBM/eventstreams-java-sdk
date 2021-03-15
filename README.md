@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.com/IBM/eventstreams-java-sdk.svg?token=eW5FVD71iyte6tTby8gr&branch=main)](https://travis-ci.com/IBM/eventstreams-java-sdk)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-# IBM Cloud Eventstreams Java SDK Version 0.0.1
+# IBM Cloud Eventstreams Java SDK Version 1.0.0
 
 ## Introduction
 
@@ -38,6 +38,7 @@ Changes might occur which impact applications that use this SDK.
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Using the SDK](#using-the-sdk)
+- [REST API documentation](#event-streams-administration-rest-api)
 - [Questions](#questions)
 - [Issues](#issues)
 - [Open source @ IBM](#open-source--ibm)
@@ -56,16 +57,14 @@ Service Name | Artifact Coordinates
 
 ## Prerequisites
 
-[ibm-cloud-onboarding]: https://cloud.ibm.com/registration
-
-* An [IBM Cloud][ibm-cloud-onboarding] account.
+* An [IBM Cloud][https://cloud.ibm.com/registration] account.
 * The [IBM Cloud CLI.](https://cloud.ibm.com/docs/cli?topic=cli-getting-started)
 * An IAM API key to allow the SDK to access your account. Create one [here](https://cloud.ibm.com/iam/apikeys).
 * A IBM Cloud Eventstreams Instance Create one [here](https://cloud.ibm.com/registration?target=/catalog/services/event-streams)
 * Java 8 or above.
 
 ## Installation
-The current version of this SDK is: 0.0.1
+The current version of this SDK is: 1.0.0
 
 Each service's artifact coordinates are listed in the table above.
 
@@ -212,6 +211,7 @@ The following sections explain how the REST API works with examples.
 
 ### Code Setup
 
+```java
 	// Code Setup
 	package com.ibm.cloud.adminrest.v1;
 	
@@ -241,7 +241,7 @@ The following sections explain how the REST API works with examples.
 	    private AdminrestExample() {
 	    }
 	// End Code Setup
-
+```
 
 
 ### Authentication
@@ -271,6 +271,7 @@ Use one of the following methods to authenticate:
 Here's an example of how to create the authenticator using either an API key or a BEARER_TOKEN
 
 ```
+```java
 	        // Create Authenticator
 	        Authenticator authenticator;
 	
@@ -285,7 +286,7 @@ Here's an example of how to create the authenticator using either an API key or 
 	        // Create Service - Construct the service client.
 	        Adminrest service = new Adminrest(serviceName, authenticator);
 	        // End Authenticator
-
+```
 
 ```
 
@@ -294,10 +295,11 @@ Here's an example of how to create the authenticator using either an API key or 
 ---
 Create a new service object.
 
+```java
 	        // Create Service - Construct the service client.
 	        Adminrest service = new Adminrest(serviceName, authenticator);
 	        // End Authenticator
-
+```
 
 
 ### Creating a Kafka topic
@@ -332,6 +334,7 @@ If the request to create a Kafka topic succeeds then HTTP status code 202 (Accep
 #### Example
 
 ```
+```java
 	    private static void createTopic(Adminrest service, String topicName) {
 	        System.out.println("Create Topic");
 	
@@ -351,7 +354,7 @@ If the request to create a Kafka topic succeeds then HTTP status code 202 (Accep
 	            System.out.println("Error creating topic: " + topicName);
 	        }
 	    } // func.end
-
+```
 
 ```
 
@@ -368,6 +371,7 @@ Expected return codes:
 - 202: Topic deletion request was accepted.
 - 403: Not authorized to delete topic.
 - 404: Topic does not exist.
+- 422: Semantically invalid request.
   
 A 202 (Accepted) status code is returned if the REST API accepts the delete
 request or status code 422 (Un-processable Entity) if the delete request is
@@ -382,6 +386,7 @@ of time after the completion of a REST request to delete the topic.
 #### Example
 
 ```
+```java
 	    private static void deleteTopic(Adminrest service, String topicName) {
 	        System.out.println("Delete Topic");
 	
@@ -400,7 +405,7 @@ of time after the completion of a REST request to delete the topic.
 	            System.out.println("Error deleting topic: " + topicName);
 	        }
 	    } // func.end
-
+```
 
 ```
 
@@ -441,6 +446,7 @@ following properties:
 #### Example
 
 ```
+```java
 	    private static void listTopics(Adminrest service) {
 	        System.out.println("List Topics");
 	
@@ -463,7 +469,7 @@ following properties:
 	            System.out.println("Error listing topics");
 	        }
 	    } // func.end
-
+```
 
 ```
 
@@ -508,6 +514,7 @@ Expected status codes
 #### Example
 
 ```
+```java
 	    private static void topicDetails(Adminrest service, String topicName) {
 	
 	        System.out.println("Topic Details");
@@ -545,7 +552,7 @@ Expected status codes
 	            System.out.println("Error getting topic details: " + topicName);
 	        }
 	    } // func.end
-
+```
 
 ```
 
@@ -577,6 +584,7 @@ Expected status codes
 #### Example
 
 ```
+```java
 	    private static void updateTopic(Adminrest service, String topicName) {
 	
 	        System.out.println("Update Topic");
@@ -597,7 +605,7 @@ Expected status codes
 	            System.out.println("Error updating topic: " + topicName);
 	        }
 	    } // func.end
-
+```
 
 ```
 
@@ -625,6 +633,7 @@ Expected status codes
 #### Example
 
 ```
+```java
 	    private static void listMirroringTopicSelection(Adminrest service) {
 	
 	        System.out.println("List Mirroring Topic Selection");
@@ -644,7 +653,7 @@ Expected status codes
 	            System.out.println("Error listing mirroring topic selection");
 	        }
 	    } // func.end
-
+```
 
 ```
 
@@ -676,6 +685,7 @@ Expected status codes
 #### Example
 
 ```
+```java
 	    private static void replaceMirroringTopicSelection(Adminrest service, String topicName) {
 	
 	        System.out.println("Mirroring Topic Selection");
@@ -697,7 +707,7 @@ Expected status codes
 	            System.out.println("Error replacing mirroring topic selection: " + topicName);
 	        }
 	    } // func.end
-
+```
 
 ```
 
@@ -725,6 +735,7 @@ Expected status codes
 #### Example
 
 ```
+```java
 	    private static void listActiveMirroringTopics(Adminrest service) {
 	
 	        System.out.println("List Active Mirroring Topics");
@@ -744,6 +755,6 @@ Expected status codes
 	            System.out.println("Error listing active topics");
 	        }
 	    } // func.end
-
+```
 
 ```
