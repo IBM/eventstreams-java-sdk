@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.com/IBM/eventstreams-java-sdk.svg?&branch=main)](https://travis-ci.com/IBM/eventstreams-java-sdk)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-# IBM Cloud Eventstreams Java SDK Version 1.0.0
+# IBM Cloud Eventstreams Java SDK Version 1.1.0
 
 ## Introduction
 
@@ -13,12 +13,8 @@ Using the API, you can integrate Event Streams with any system that supports RES
 
 Documentation [IBM Cloud Eventstreams Service APIs](https://cloud.ibm.com/apidocs/event-streams).
 
-
 This is the Eventstreams Software Development Kit for `Java`
 It includes a library of functions used to access a Eventstreams cluster.
-
-Disclaimer: this SDK is being released initially as a **pre-release** version.
-Changes might occur which impact applications that use this SDK.
 
 ## Table of Contents
 
@@ -64,7 +60,7 @@ Service Name | Artifact Coordinates
 * Java 8 or above.
 
 ## Installation
-The current version of this SDK is: 1.0.0
+The current version of this SDK is: 1.1.0
 
 Each service's artifact coordinates are listed in the table above.
 
@@ -82,13 +78,13 @@ artifact coordinates (group id, artifact id and version) for the service, like t
 <dependency>
     <groupId>com.ibm.cloud</groupId>
     <artifactId>eventstreams_sdk</artifactId>
-    <version>0.0.1</version>
+1.1.0
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.cloud:eventstreams_sdk:0.0.1'
+1.1.0
 ```
 
 ## Using the SDK
@@ -130,7 +126,7 @@ operations:
   - [Delete a Kafka topic](#deleting-a-kafka-topic)
   - [Update a Kafka topic configuration](#updating-kafka-topics-configuration)
   - [List which topics are mirrored](#list-current-mirroring-topic-selection)
-  - [Replace selection of topics which are mirrored](#replace-mirroring-topic-selection)
+  - [Replace selection of topics which are mirrored](#replace-selection-of-topics-which-are-mirrored)
   - [List active mirroring topics](#list-active-mirroring-topics)
   
 The Admin REST API is also [documented using swagger](./admin-rest-api.yaml).
@@ -212,35 +208,35 @@ The following sections explain how the REST API works with examples.
 ### Code Setup
 
 ```java
-	// Code Setup
-	package com.ibm.cloud.adminrest.v1;
-	
-	import java.util.Arrays;
-	import java.util.List;
-	import com.ibm.cloud.eventstreams_sdk.adminrest.v1.Adminrest;
-	import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ListTopicsOptions;
-	import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.TopicDetail;
-	import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.CreateTopicOptions;
-	import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.DeleteTopicOptions;
-	import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.UpdateTopicOptions;
-	import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ReplicaAssignment;
-	import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetMirroringActiveTopicsOptions;
-	import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.MirroringActiveTopics;
-	import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ReplaceMirroringTopicSelectionOptions;
-	import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.MirroringTopicSelection;
-	import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetMirroringTopicSelectionOptions;
-	import com.ibm.cloud.sdk.core.security.Authenticator;
-	import com.ibm.cloud.sdk.core.security.BasicAuthenticator;
-	import com.ibm.cloud.sdk.core.security.BearerTokenAuthenticator;
-	import com.ibm.cloud.sdk.core.http.Response;
-	import com.ibm.cloud.sdk.core.http.HttpStatus;
-	
-	public class AdminrestExample {
-	
-	
-	    private AdminrestExample() {
-	    }
-	// End Code Setup
+// Code Setup
+package com.ibm.cloud.adminrest.v1;
+
+import java.util.Arrays;
+import java.util.List;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.Adminrest;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ListTopicsOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.TopicDetail;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.CreateTopicOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.DeleteTopicOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.UpdateTopicOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ReplicaAssignment;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetMirroringActiveTopicsOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.MirroringActiveTopics;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ReplaceMirroringTopicSelectionOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.MirroringTopicSelection;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetMirroringTopicSelectionOptions;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.BasicAuthenticator;
+import com.ibm.cloud.sdk.core.security.BearerTokenAuthenticator;
+import com.ibm.cloud.sdk.core.http.Response;
+import com.ibm.cloud.sdk.core.http.HttpStatus;
+
+public class AdminrestExample {
+
+
+    private AdminrestExample() {
+    }
+// End Code Setup
 ```
 
 
@@ -271,20 +267,20 @@ Use one of the following methods to authenticate:
 Here's an example of how to create the authenticator using either an API key or a BEARER_TOKEN
 
 ```java
-	        // Create Authenticator
-	        Authenticator authenticator;
-	
-	        if (apiKey != null && !apiKey.isEmpty()) {
-	            // Create an Basic IAM authenticator.
-	            authenticator = new BasicAuthenticator("token", apiKey);
-	        } else {
-	            // Create an IAM Bearer Token authenticator.
-	            authenticator = new BearerTokenAuthenticator(bearerToken);
-	        }
-	
-	        // Create Service - Construct the service client.
-	        Adminrest service = new Adminrest(serviceName, authenticator);
-	        // End Authenticator
+        // Create Authenticator
+        Authenticator authenticator;
+
+        if (apiKey != null && !apiKey.isEmpty()) {
+            // Create an Basic IAM authenticator.
+            authenticator = new BasicAuthenticator("token", apiKey);
+        } else {
+            // Create an IAM Bearer Token authenticator.
+            authenticator = new BearerTokenAuthenticator(bearerToken);
+        }
+
+        // Create Service - Construct the service client.
+        Adminrest service = new Adminrest(serviceName, authenticator);
+        // End Authenticator
 ```
 
 
@@ -293,9 +289,9 @@ Here's an example of how to create the authenticator using either an API key or 
 Create a new service object.
 
 ```java
-	        // Create Service - Construct the service client.
-	        Adminrest service = new Adminrest(serviceName, authenticator);
-	        // End Authenticator
+        // Create Service - Construct the service client.
+        Adminrest service = new Adminrest(serviceName, authenticator);
+        // End Authenticator
 ```
 
 
@@ -331,25 +327,25 @@ If the request to create a Kafka topic succeeds then HTTP status code 202 (Accep
 #### Example
 
 ```java
-	    private static void createTopic(Adminrest service, String topicName) {
-	        System.out.println("Create Topic");
-	
-	        // Construct an instance of the CreateTopicOptions.
-	        CreateTopicOptions createTopicOptions = new CreateTopicOptions.Builder()
-	            .name(topicName)
-	            .partitions(3) // Create with three partitions.
-	            .build();
-	
-	        // Invoke operation with valid options.
-	        Response<Void> response = service.createTopic(createTopicOptions).execute();
-	
-	        // Print the results.
-	        if (response.getStatusCode() == HttpStatus.ACCEPTED) {
-	            System.out.println("\ttopic created: " + topicName);
-	        } else {
-	            System.out.println("Error creating topic: " + topicName);
-	        }
-	    } // func.end
+    private static void createTopic(Adminrest service, String topicName) {
+        System.out.println("Create Topic");
+
+        // Construct an instance of the CreateTopicOptions.
+        CreateTopicOptions createTopicOptions = new CreateTopicOptions.Builder()
+            .name(topicName)
+            .partitions(3) // Create with three partitions.
+            .build();
+
+        // Invoke operation with valid options.
+        Response<Void> response = service.createTopic(createTopicOptions).execute();
+
+        // Print the results.
+        if (response.getStatusCode() == HttpStatus.ACCEPTED) {
+            System.out.println("\ttopic created: " + topicName);
+        } else {
+            System.out.println("Error creating topic: " + topicName);
+        }
+    } // func.end
 ```
 
 
@@ -378,24 +374,24 @@ of time after the completion of a REST request to delete the topic.
 #### Example
 
 ```java
-	    private static void deleteTopic(Adminrest service, String topicName) {
-	        System.out.println("Delete Topic");
-	
-	        // Construct an instance of the CreateTopicOptions.
-	        DeleteTopicOptions deleteTopicOptions = new DeleteTopicOptions.Builder()
-	            .topicName(topicName)
-	            .build();
-	
-	        // Invoke operation with valid options.
-	        Response<Void> response = service.deleteTopic(deleteTopicOptions).execute();
-	
-	        // Print the results.
-	        if (response.getStatusCode() == HttpStatus.ACCEPTED) {
-	            System.out.println("\ttopic deleted: " + topicName);
-	        } else {
-	            System.out.println("Error deleting topic: " + topicName);
-	        }
-	    } // func.end
+    private static void deleteTopic(Adminrest service, String topicName) {
+        System.out.println("Delete Topic");
+
+        // Construct an instance of the CreateTopicOptions.
+        DeleteTopicOptions deleteTopicOptions = new DeleteTopicOptions.Builder()
+            .topicName(topicName)
+            .build();
+
+        // Invoke operation with valid options.
+        Response<Void> response = service.deleteTopic(deleteTopicOptions).execute();
+
+        // Print the results.
+        if (response.getStatusCode() == HttpStatus.ACCEPTED) {
+            System.out.println("\ttopic deleted: " + topicName);
+        } else {
+            System.out.println("Error deleting topic: " + topicName);
+        }
+    } // func.end
 ```
 
 
@@ -436,28 +432,28 @@ following properties:
 #### Example
 
 ```java
-	    private static void listTopics(Adminrest service) {
-	        System.out.println("List Topics");
-	
-	        // Construct an instance of the ListTopicsOptions.
-	        ListTopicsOptions listTopicsOptions = new ListTopicsOptions.Builder()
-	            .build();
-	        // .topicFilter defaults to an empty string to see all topics.
-	        // or you can specify a topic name.
-	        //.topicFilter("<You Topic Name>");
-	
-	        // Invoke operation with valid options.
-	        Response<List<TopicDetail>> response = service.listTopics(listTopicsOptions).execute();
-	
-	        // Print the results.
-	        if (response.getStatusCode() == HttpStatus.OK) {
-	            for (TopicDetail topicDetail : response.getResult()) {
-	                System.out.println("\t" + topicDetail.getName());
-	            }
-	        } else {
-	            System.out.println("Error listing topics");
-	        }
-	    } // func.end
+    private static void listTopics(Adminrest service) {
+        System.out.println("List Topics");
+
+        // Construct an instance of the ListTopicsOptions.
+        ListTopicsOptions listTopicsOptions = new ListTopicsOptions.Builder()
+            .build();
+        // .topicFilter defaults to an empty string to see all topics.
+        // or you can specify a topic name.
+        //.topicFilter("<You Topic Name>");
+
+        // Invoke operation with valid options.
+        Response<List<TopicDetail>> response = service.listTopics(listTopicsOptions).execute();
+
+        // Print the results.
+        if (response.getStatusCode() == HttpStatus.OK) {
+            for (TopicDetail topicDetail : response.getResult()) {
+                System.out.println("\t" + topicDetail.getName());
+            }
+        } else {
+            System.out.println("Error listing topics");
+        }
+    } // func.end
 ```
 
 
@@ -502,43 +498,43 @@ Expected status codes
 #### Example
 
 ```java
-	    private static void topicDetails(Adminrest service, String topicName) {
-	
-	        System.out.println("Topic Details");
-	
-	        // Construct an instance of the ListTopicsOptions.
-	        ListTopicsOptions listTopicsOptions = new ListTopicsOptions.Builder()
-	            .topicFilter(topicName)
-	            .build();
-	
-	        // Invoke operation with valid options.
-	        Response<List<TopicDetail>> response = service.listTopics(listTopicsOptions).execute();
-	
-	        // Print the results.
-	        if (response.getStatusCode() == HttpStatus.OK) {
-	            for (TopicDetail topicDetail : response.getResult()) {
-	                System.out.println("\tname:\t" + topicDetail.getName());
-	                System.out.println("\tpartitions:\t" + topicDetail.getPartitions());
-	                System.out.println("\treplication factor:\t" + topicDetail.getReplicationFactor());
-	                System.out.println("\tretention ms:\t" + topicDetail.getRetentionMs());
-	                // Print configs.
-	                System.out.println("\t\tcleanup policy:\t" + topicDetail.getConfigs().getCleanupPolicy());
-	                System.out.println("\t\tmin insync replicas:\t" + topicDetail.getConfigs().getMinInsyncReplicas());
-	                System.out.println("\t\tretention bytes:\t" + topicDetail.getConfigs().getRetentionBytes());
-	                System.out.println("\t\tretention ms:\t" + topicDetail.getConfigs().getRetentionMs());
-	                System.out.println("\t\tsegment bytes:\t" + topicDetail.getConfigs().getSegmentBytes());
-	                System.out.println("\t\tsegment index bytes:\t" + topicDetail.getConfigs().getSegmentIndexBytes());
-	                System.out.println("\t\tsegment ms:\t" + topicDetail.getConfigs().getSegmentMs());
-	                // Print assignments.
-	                for (ReplicaAssignment replicaAssignment : topicDetail.getReplicaAssignments()) {
-	                    System.out.println("\t\treplica id:\t" + replicaAssignment.getId());
-	                    System.out.println("\t\treplica brokers:\t" + replicaAssignment.getBrokers().getReplicas());
-	                }
-	            }
-	        } else {
-	            System.out.println("Error getting topic details: " + topicName);
-	        }
-	    } // func.end
+    private static void topicDetails(Adminrest service, String topicName) {
+
+        System.out.println("Topic Details");
+
+        // Construct an instance of the ListTopicsOptions.
+        ListTopicsOptions listTopicsOptions = new ListTopicsOptions.Builder()
+            .topicFilter(topicName)
+            .build();
+
+        // Invoke operation with valid options.
+        Response<List<TopicDetail>> response = service.listTopics(listTopicsOptions).execute();
+
+        // Print the results.
+        if (response.getStatusCode() == HttpStatus.OK) {
+            for (TopicDetail topicDetail : response.getResult()) {
+                System.out.println("\tname:\t" + topicDetail.getName());
+                System.out.println("\tpartitions:\t" + topicDetail.getPartitions());
+                System.out.println("\treplication factor:\t" + topicDetail.getReplicationFactor());
+                System.out.println("\tretention ms:\t" + topicDetail.getRetentionMs());
+                // Print configs.
+                System.out.println("\t\tcleanup policy:\t" + topicDetail.getConfigs().getCleanupPolicy());
+                System.out.println("\t\tmin insync replicas:\t" + topicDetail.getConfigs().getMinInsyncReplicas());
+                System.out.println("\t\tretention bytes:\t" + topicDetail.getConfigs().getRetentionBytes());
+                System.out.println("\t\tretention ms:\t" + topicDetail.getConfigs().getRetentionMs());
+                System.out.println("\t\tsegment bytes:\t" + topicDetail.getConfigs().getSegmentBytes());
+                System.out.println("\t\tsegment index bytes:\t" + topicDetail.getConfigs().getSegmentIndexBytes());
+                System.out.println("\t\tsegment ms:\t" + topicDetail.getConfigs().getSegmentMs());
+                // Print assignments.
+                for (ReplicaAssignment replicaAssignment : topicDetail.getReplicaAssignments()) {
+                    System.out.println("\t\treplica id:\t" + replicaAssignment.getId());
+                    System.out.println("\t\treplica brokers:\t" + replicaAssignment.getBrokers().getReplicas());
+                }
+            }
+        } else {
+            System.out.println("Error getting topic details: " + topicName);
+        }
+    } // func.end
 ```
 
 
@@ -570,26 +566,26 @@ Expected status codes
 #### Example
 
 ```java
-	    private static void updateTopic(Adminrest service, String topicName) {
-	
-	        System.out.println("Update Topic");
-	
-	        // Construct an instance of the UpdateTopicOptions.
-	        UpdateTopicOptions updateTopicOptions = new UpdateTopicOptions.Builder()
-	            .topicName(topicName)
-	            .newTotalPartitionCount(6) // Update partitions to 6.
-	            .build();
-	
-	        // Invoke operation with valid options.
-	        Response<Void> response = service.updateTopic(updateTopicOptions).execute();
-	
-	        // Print the results.
-	        if (response.getStatusCode() == HttpStatus.ACCEPTED) {
-	            System.out.println("\ttopic updated: " + topicName);
-	        } else {
-	            System.out.println("Error updating topic: " + topicName);
-	        }
-	    } // func.end
+    private static void updateTopic(Adminrest service, String topicName) {
+
+        System.out.println("Update Topic");
+
+        // Construct an instance of the UpdateTopicOptions.
+        UpdateTopicOptions updateTopicOptions = new UpdateTopicOptions.Builder()
+            .topicName(topicName)
+            .newTotalPartitionCount(6) // Update partitions to 6.
+            .build();
+
+        // Invoke operation with valid options.
+        Response<Void> response = service.updateTopic(updateTopicOptions).execute();
+
+        // Print the results.
+        if (response.getStatusCode() == HttpStatus.ACCEPTED) {
+            System.out.println("\ttopic updated: " + topicName);
+        } else {
+            System.out.println("Error updating topic: " + topicName);
+        }
+    } // func.end
 ```
 
 
@@ -617,25 +613,25 @@ Expected status codes
 #### Example
 
 ```java
-	    private static void listMirroringTopicSelection(Adminrest service) {
-	
-	        System.out.println("List Mirroring Topic Selection");
-	
-	        // Construct an instance of the GetMirroringTopicSelectionOptions.
-	        GetMirroringTopicSelectionOptions getMirroringTopicSelectionOptions = new GetMirroringTopicSelectionOptions();
-	
-	        // Invoke operation with valid options.
-	        Response<MirroringTopicSelection> response = service.getMirroringTopicSelection(getMirroringTopicSelectionOptions).execute();
-	
-	        // Print the results.
-	        if (response.getStatusCode() == HttpStatus.OK) {
-	            for (String replaceTopic : response.getResult().includes()) {
-	                System.out.println("\tname: " + replaceTopic);
-	            }
-	        } else {
-	            System.out.println("Error listing mirroring topic selection");
-	        }
-	    } // func.end
+    private static void listMirroringTopicSelection(Adminrest service) {
+
+        System.out.println("List Mirroring Topic Selection");
+
+        // Construct an instance of the GetMirroringTopicSelectionOptions.
+        GetMirroringTopicSelectionOptions getMirroringTopicSelectionOptions = new GetMirroringTopicSelectionOptions();
+
+        // Invoke operation with valid options.
+        Response<MirroringTopicSelection> response = service.getMirroringTopicSelection(getMirroringTopicSelectionOptions).execute();
+
+        // Print the results.
+        if (response.getStatusCode() == HttpStatus.OK) {
+            for (String replaceTopic : response.getResult().includes()) {
+                System.out.println("\tname: " + replaceTopic);
+            }
+        } else {
+            System.out.println("Error listing mirroring topic selection");
+        }
+    } // func.end
 ```
 
 
@@ -667,27 +663,27 @@ Expected status codes
 #### Example
 
 ```java
-	    private static void replaceMirroringTopicSelection(Adminrest service, String topicName) {
-	
-	        System.out.println("Mirroring Topic Selection");
-	
-	        // Construct an instance of the ReplaceMirroringTopicSelectionOptions.
-	        ReplaceMirroringTopicSelectionOptions replaceMirroringTopicSelectionOptions = new ReplaceMirroringTopicSelectionOptions.Builder()
-	            .includes(Arrays.asList(topicName))
-	            .build();
-	
-	         // Invoke operation with valid options.
-	        Response<MirroringTopicSelection> response = service.replaceMirroringTopicSelection(replaceMirroringTopicSelectionOptions).execute();
-	
-	        // Print the results.
-	        if (response.getStatusCode() == HttpStatus.OK) {
-	            for (String replaceTopic : response.getResult().includes()) {
-	                System.out.println("\tname: " + replaceTopic);
-	            }
-	        } else {
-	            System.out.println("Error replacing mirroring topic selection: " + topicName);
-	        }
-	    } // func.end
+    private static void replaceMirroringTopicSelection(Adminrest service, String topicName) {
+
+        System.out.println("Mirroring Topic Selection");
+
+        // Construct an instance of the ReplaceMirroringTopicSelectionOptions.
+        ReplaceMirroringTopicSelectionOptions replaceMirroringTopicSelectionOptions = new ReplaceMirroringTopicSelectionOptions.Builder()
+            .includes(Arrays.asList(topicName))
+            .build();
+
+         // Invoke operation with valid options.
+        Response<MirroringTopicSelection> response = service.replaceMirroringTopicSelection(replaceMirroringTopicSelectionOptions).execute();
+
+        // Print the results.
+        if (response.getStatusCode() == HttpStatus.OK) {
+            for (String replaceTopic : response.getResult().includes()) {
+                System.out.println("\tname: " + replaceTopic);
+            }
+        } else {
+            System.out.println("Error replacing mirroring topic selection: " + topicName);
+        }
+    } // func.end
 ```
 
 
@@ -715,24 +711,24 @@ Expected status codes
 #### Example
 
 ```java
-	    private static void listActiveMirroringTopics(Adminrest service) {
-	
-	        System.out.println("List Active Mirroring Topics");
-	
-	        // Construct an instance of the GetMirroringActiveTopicsOptions.
-	        GetMirroringActiveTopicsOptions getMirroringActiveTopicsOptions = new GetMirroringActiveTopicsOptions();
-	
-	        // Invoke operation with valid options.
-	        Response<MirroringActiveTopics> response = service.getMirroringActiveTopics(getMirroringActiveTopicsOptions).execute();
-	
-	        // Print the results.
-	        if (response.getStatusCode() == HttpStatus.OK) {
-	            for (String activeTopic : response.getResult().getActiveTopics()) {
-	                System.out.println("\tname: " + activeTopic);
-	            }
-	        } else {
-	            System.out.println("Error listing active topics");
-	        }
-	    } // func.end
+    private static void listActiveMirroringTopics(Adminrest service) {
+
+        System.out.println("List Active Mirroring Topics");
+
+        // Construct an instance of the GetMirroringActiveTopicsOptions.
+        GetMirroringActiveTopicsOptions getMirroringActiveTopicsOptions = new GetMirroringActiveTopicsOptions();
+
+        // Invoke operation with valid options.
+        Response<MirroringActiveTopics> response = service.getMirroringActiveTopics(getMirroringActiveTopicsOptions).execute();
+
+        // Print the results.
+        if (response.getStatusCode() == HttpStatus.OK) {
+            for (String activeTopic : response.getResult().getActiveTopics()) {
+                System.out.println("\tname: " + activeTopic);
+            }
+        } else {
+            System.out.println("Error listing active topics");
+        }
+    } // func.end
 ```
 
