@@ -78,13 +78,13 @@ artifact coordinates (group id, artifact id and version) for the service, like t
 <dependency>
     <groupId>com.ibm.cloud</groupId>
     <artifactId>eventstreams_sdk</artifactId>
-1.1.0
+    <version>1.1.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-1.1.0
+'com.ibm.cloud:eventstreams_sdk:1.1.0'
 ```
 
 ## Using the SDK
@@ -188,7 +188,7 @@ Compile the code.
 ```
 Set the required environment variables
 ```sh
-# Set you API KEY.
+# Set your API KEY (or a bearer token could be used by setting the BEARER_TOKEN environment variable instead, but not both)
 export API_KEY="abc123456789"
 
 # Set the Admin Endpoint to point to your cluster.
@@ -198,7 +198,7 @@ export KAFKA_ADMIN_URL="https://xyzclustername.svc01.region.eventstreams.test.cl
 
 Run the example
 ```sh
-java -jar target/adminrest-examples-99-SNAPSHOT
+java -jar target/adminrest-examples-99-SNAPSHOT.jar
 ```
 
 ## REST API 
