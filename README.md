@@ -239,7 +239,6 @@ public class AdminrestExample {
 // End Code Setup
 ```
 
-
 ### Authentication
 ---
 Use one of the following methods to authenticate:
@@ -283,7 +282,6 @@ Here's an example of how to create the authenticator using either an API key or 
         // End Authenticator
 ```
 
-
 ### Creating a client for the Admin REST API.
 ---
 Create a new service object.
@@ -293,7 +291,6 @@ Create a new service object.
         Adminrest service = new Adminrest(serviceName, authenticator);
         // End Authenticator
 ```
-
 
 ### Creating a Kafka topic
 ---
@@ -345,9 +342,8 @@ If the request to create a Kafka topic succeeds then HTTP status code 202 (Accep
         } else {
             System.out.println("Error creating topic: " + topicName);
         }
-    } // func.end
+    } 
 ```
-
 
 
 ### Deleting a Kafka topic
@@ -391,9 +387,8 @@ of time after the completion of a REST request to delete the topic.
         } else {
             System.out.println("Error deleting topic: " + topicName);
         }
-    } // func.end
+    } 
 ```
-
 
 ### Listing Kafka topics
 ---
@@ -453,9 +448,8 @@ following properties:
         } else {
             System.out.println("Error listing topics");
         }
-    } // func.end
+    } 
 ```
-
 
 ### Getting a Kafka topic
 ---
@@ -534,9 +528,8 @@ Expected status codes
         } else {
             System.out.println("Error getting topic details: " + topicName);
         }
-    } // func.end
+    } 
 ```
-
 
 ### Updating Kafka topic's configuration
 ---
@@ -585,9 +578,8 @@ Expected status codes
         } else {
             System.out.println("Error updating topic: " + topicName);
         }
-    } // func.end
+    } 
 ```
-
 
 ### List current mirroring topic selection
 
@@ -631,9 +623,8 @@ Expected status codes
         } else {
             System.out.println("Error listing mirroring topic selection");
         }
-    } // func.end
+    } 
 ```
-
 
 ### Replace selection of topics which are mirrored
 
@@ -683,9 +674,8 @@ Expected status codes
         } else {
             System.out.println("Error replacing mirroring topic selection: " + topicName);
         }
-    } // func.end
+    } 
 ```
-
 
 ### List active mirroring topics
 ---
@@ -729,6 +719,5 @@ Expected status codes
         } else {
             System.out.println("Error listing active topics");
         }
-    } // func.end
+    } 
 ```
-
