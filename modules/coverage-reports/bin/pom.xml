@@ -1,26 +1,17 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <!-- Update this section to reflect the correct values for your SDK project -->
+  
     <parent>
-        <!-- >>> Update this to reflect your parent project's artifact id -->
-        <artifactId>eventstreams_sdk</artifactId>
+        <artifactId>eventstreams-sdk</artifactId>
         <groupId>com.ibm.cloud</groupId>
         <version>99-SNAPSHOT</version>
         <relativePath>../..</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- >>> Replace this with the coverage-report module's artifactId (e.g. platform-services-coverage-reports) -->
-    <artifactId>eventstreams_sdk-coverage-reports</artifactId>
+    <artifactId>adminrest-coverage-reports</artifactId>
 
-    <!-- >>> Replace this with the coverage-report module's description -->
     <name>Eventstreams SDK Coverage Reports</name>
-
-    <properties>
-	<!-- There is no need to publish this module's artifacts on maven central -->
-        <maven.deploy.skip>true</maven.deploy.skip>
-        <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
-    </properties>
 
     <dependencies>
         <!-- 
@@ -31,22 +22,23 @@
             pom.xml file (i.e. not the module's directory name).
         -->
         <dependency>
-            <!-- >>> Replace this with the common module's artifactId -->
-            <artifactId>eventstreams_sdk-common</artifactId>
+            <artifactId>adminrest-common</artifactId>
             <groupId>${project.groupId}</groupId>
             <version>${project.version}</version>
         </dependency>
 
-        <!-- Copy and update this section for each service added to the project. -->
-<!--        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>example-service</artifactId>
-            <version>${project.version}</version>
-        </dependency>
--->    </dependencies>
+    </dependencies>
 
     <build>
         <plugins>
+            <!-- No need to deploy this artifact since it contains only coverage info -->
+            <plugin>
+                <groupId>com.carrotgarden.maven</groupId>
+                <artifactId>bintray-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>

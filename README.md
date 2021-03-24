@@ -198,7 +198,7 @@ export KAFKA_ADMIN_URL="https://xyzclustername.svc01.region.eventstreams.test.cl
 
 Run the example
 ```sh
-java -jar target/adminrest-examples-99-SNAPSHOT.jar
+java -jar modules/examples/target/adminrest-examples-99-SNAPSHOT.jar
 ```
 
 ## REST API 
