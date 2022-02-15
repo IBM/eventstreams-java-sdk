@@ -36,13 +36,9 @@ jobs:
   include:
     - stage: Build-Test
       jdk: openjdk8
-      install:
-        - curl -s https://codecov.io/bash > $HOME/codecov-bash.sh && chmod +x $HOME/codecov-bash.sh
       script:
         - build/setMavenVersion.sh
         - mvn verify -fae -DskipITs $MVN_ARGS
-      after_success:
-        - build/publishCodeCoverage.sh
 
 # Uncomment these stages when you're ready to use them.
 #    - stage: Semantic-Release
