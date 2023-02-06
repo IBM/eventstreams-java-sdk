@@ -29,6 +29,13 @@ import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ReplicaAssignmentBroker
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.TopicConfigs;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.TopicDetail;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.UpdateTopicOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.CreateQuotaOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.DeleteQuotaOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.EntityQuotasList;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetQuotaOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ListQuotasOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.QuotaDetail;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.UpdateQuotaOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.security.Authenticator;
@@ -451,6 +458,207 @@ public class AdminrestTest extends PowerMockTestCase {
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getMirroringActiveTopicsPath);
+  }
+
+  // Test the createQuota operation with a valid options model parameter
+  @Test
+  public void testCreateQuotaWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "";
+    String createQuotaPath = "/admin/quotas/testString";
+    server.enqueue(new MockResponse()
+            .setResponseCode(201)
+            .setBody(mockResponseBody));
+    constructClientService();
+    // Construct an instance of the CreateQuotaOptions model
+    CreateQuotaOptions createQuotaOptionsModel = new CreateQuotaOptions.Builder()
+            .entityName("testString")
+            .producerByteRate(1024)
+            .consumerByteRate(1024)
+            .build();
+
+    // Invoke createQuota() with a valid options model and verify the result
+    Response<Void> response = adminrestService.createQuota(createQuotaOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    assertNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createQuotaPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the createQuota operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateQuotaNoOptions() throws Throwable {
+    constructClientService();
+    server.enqueue(new MockResponse());
+    adminrestService.createQuota(null).execute();
+  }
+
+  // Test the updateQuota operation with a valid options model parameter
+  @Test
+  public void testUpdateQuotaWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "";
+    String updateQuotaPath = "/admin/quotas/testString";
+    server.enqueue(new MockResponse()
+            .setResponseCode(202)
+            .setBody(mockResponseBody));
+    constructClientService();
+    // Construct an instance of the UpdateQuotaOptions model
+    UpdateQuotaOptions updateQuotaOptionsModel = new UpdateQuotaOptions.Builder()
+            .entityName("testString")
+            .producerByteRate(1024)
+            .consumerByteRate(1024)
+            .build();
+
+    // Invoke updateQuota() with a valid options model and verify the result
+    Response<Void> response = adminrestService.updateQuota(updateQuotaOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    assertNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "PATCH");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateQuotaPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the updateQuota operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateQuotaNoOptions() throws Throwable {
+    constructClientService();
+    server.enqueue(new MockResponse());
+    adminrestService.updateQuota(null).execute();
+  }
+
+  // Test the deleteQuota operation with a valid options model parameter
+  @Test
+  public void testDeleteQuotaWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "";
+    String deleteQuotaPath = "/admin/quotas/testString";
+    server.enqueue(new MockResponse()
+            .setResponseCode(202)
+            .setBody(mockResponseBody));
+    constructClientService();
+    // Construct an instance of the DeleteQuotaOptions model
+    DeleteQuotaOptions deleteQuotaOptionsModel = new DeleteQuotaOptions.Builder()
+            .entityName("testString")
+            .build();
+
+    // Invoke deleteQuota() with a valid options model and verify the result
+    Response<Void> response = adminrestService.deleteQuota(deleteQuotaOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    assertNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteQuotaPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the deleteQuota operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteQuotaNoOptions() throws Throwable {
+    constructClientService();
+    server.enqueue(new MockResponse());
+    adminrestService.deleteQuota(null).execute();
+  }
+
+  // Test the getQuota operation with a valid options model parameter
+  @Test
+  public void testGetQuotaWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"producer_byte_rate\": 1024, \"consumer_byte_rate\": 1024}";
+    String getQuotaPath = "/admin/quotas/testString";
+    server.enqueue(new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+    constructClientService();
+    // Construct an instance of the GetQuotaOptions model
+    GetQuotaOptions getQuotaOptionsModel = new GetQuotaOptions.Builder()
+            .entityName("testString")
+            .build();
+
+    // Invoke getQuota() with a valid options model and verify the result
+    Response<QuotaDetail> response = adminrestService.getQuota(getQuotaOptionsModel).execute();
+    assertNotNull(response);
+    QuotaDetail responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getQuotaPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the getQuota operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetQuotaNoOptions() throws Throwable {
+    constructClientService();
+    server.enqueue(new MockResponse());
+    adminrestService.getQuota(null).execute();
+  }
+
+  // Test the listQuotas operation with a valid options model parameter
+  @Test
+  public void testListQuotasWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"data\": [{\"entity_name\": \"entityName\", \"producer_byte_rate\": 16, \"consumer_byte_rate\": 16}]}";
+    String listQuotasPath = "/admin/quotas";
+    server.enqueue(new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+    constructClientService();
+    // Construct an instance of the ListQuotasOptions model
+    ListQuotasOptions listQuotasOptionsModel = new ListQuotasOptions();
+
+    // Invoke listQuotas() with a valid options model and verify the result
+    Response<EntityQuotasList> response = adminrestService.listQuotas(listQuotasOptionsModel).execute();
+    assertNotNull(response);
+    EntityQuotasList responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listQuotasPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
   }
 
   /** Initialize the server */

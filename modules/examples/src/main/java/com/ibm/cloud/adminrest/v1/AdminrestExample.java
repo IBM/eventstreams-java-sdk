@@ -27,6 +27,13 @@ import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.MirroringActiveTopics;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ReplaceMirroringTopicSelectionOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.MirroringTopicSelection;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetMirroringTopicSelectionOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.CreateQuotaOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.DeleteQuotaOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.EntityQuotasList;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetQuotaOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.EntityQuotaDetail;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.QuotaDetail;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.UpdateQuotaOptions;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.BasicAuthenticator;
 import com.ibm.cloud.sdk.core.security.BearerTokenAuthenticator;
@@ -99,6 +106,15 @@ public class AdminrestExample {
         // listMirroringTopicSelection(service);
         deleteTopic(service, topicName);
         listTopics(service);
+        // Uncomment these examples if you are running against an Event Streams Enterprise plan instance
+//        String entityName = "iam-ServiceId-12345678-aaaa-bbbb-cccc-1234567890xy";
+//        listQuotas(service);
+//        createQuota(service, entityName);
+//        listQuotas(service);
+//        updateQuota(service, entityName);
+//        getQuota(service, entityName);
+//        deleteQuota(service, entityName);
+//        listQuotas(service);
     } // func.end
 
     private static void listTopics(Adminrest service) {
@@ -284,4 +300,106 @@ public class AdminrestExample {
             System.out.println("Error listing mirroring topic selection");
         }
     } // func.end
+
+    private static void createQuota(Adminrest service, String entityName) {
+        System.out.println("Create Quota");
+
+        // Construct an instance of the CreateQuotaOptions.
+        CreateQuotaOptions createQuotaOptions = new CreateQuotaOptions.Builder()
+                .entityName(entityName)
+                .producerByteRate(1024)
+                .consumerByteRate(1024)
+                .build();
+
+        // Invoke operation with valid options.
+        Response<Void> response = service.createQuota(createQuotaOptions).execute();
+
+        // Print the results.
+        if (response.getStatusCode() == HttpStatus.CREATED) {
+            System.out.println("\tQuota created for the entity: " + entityName);
+        } else {
+            System.out.println("\tError creating quota for the entity: " + entityName);
+        }
+    } // method.end
+
+
+    private static void updateQuota(Adminrest service, String entityName) {
+
+        System.out.println("Update Quota");
+
+        // Construct an instance of the UpdateQuotaOptions.
+        UpdateQuotaOptions updateQuotaOptions = new UpdateQuotaOptions.Builder()
+                .entityName(entityName)
+                .producerByteRate(2048)
+                .consumerByteRate(2048)
+                .build();
+
+        // Invoke operation with valid options.
+        Response<Void> response = service.updateQuota(updateQuotaOptions).execute();
+
+        // Print the results.
+        if (response.getStatusCode() == HttpStatus.ACCEPTED) {
+            System.out.println("\tQuota updated for the entity: " + entityName);
+        } else {
+            System.out.println("\tError updating quota for the entity: " + entityName);
+        }
+    } // method.end
+
+    private static void deleteQuota(Adminrest service, String entityName) {
+        System.out.println("Delete Quota");
+
+        // Construct an instance of the DeleteQuotaOptions.
+        DeleteQuotaOptions deleteQuotaOptions = new DeleteQuotaOptions.Builder()
+                .entityName(entityName)
+                .build();
+
+        // Invoke operation with valid options.
+        Response<Void> response = service.deleteQuota(deleteQuotaOptions).execute();
+
+        // Print the results.
+        if (response.getStatusCode() == HttpStatus.ACCEPTED) {
+            System.out.println("\tQuota deleted for the entity: " + entityName);
+        } else {
+            System.out.println("\tError deleting quota for the entity: " + entityName);
+        }
+    } // method.end
+
+    private static void getQuota(Adminrest service, String entityName) {
+
+        System.out.println("Get Entity Quota Details");
+
+        // Construct an instance of the GetQuotaOptions.
+        GetQuotaOptions getQuotaOptions = new GetQuotaOptions.Builder()
+                .entityName(entityName)
+                .build();
+
+        // Invoke operation with valid options.
+        Response<QuotaDetail> response = service.getQuota(getQuotaOptions).execute();
+
+        // Print the results.
+        if (response.getStatusCode() == HttpStatus.OK) {
+            QuotaDetail entityQuotaDetail = response.getResult();
+            System.out.println("\tproducer_byte_rate: " + entityQuotaDetail.getProducerByteRate() + "\tconsumer_byte_rate: " + entityQuotaDetail.getConsumerByteRate());
+        } else {
+            System.out.println("\tError getting quota details for the entity: " + entityName);
+        }
+    } // method.end
+
+
+    private static void listQuotas(Adminrest service) {
+        System.out.println("List Quotas");
+
+        // Invoke operation
+        Response<EntityQuotasList> response = service.listQuotas().execute();
+
+        // Print the results.
+        if (response.getStatusCode() == HttpStatus.OK) {
+            for (EntityQuotaDetail entityQuota : response.getResult().getData()) {
+                System.out.println("\tentity_name: " + entityQuota.getEntityName() + "\t producer_byte_rate: " + entityQuota.getProducerByteRate() + "\tconsumer_byte_rate: " + entityQuota.getConsumerByteRate());
+            }
+        } else {
+            System.out.println("\tError listing quotas");
+        }
+    } // method.end
+
 }
