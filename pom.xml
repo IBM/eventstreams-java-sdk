@@ -12,6 +12,8 @@
     <packaging>pom</packaging>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!--
             This is the version associated with the Java core. The version used here should be compatible with the version
             of the SDK generator used to generate your SDK code.
