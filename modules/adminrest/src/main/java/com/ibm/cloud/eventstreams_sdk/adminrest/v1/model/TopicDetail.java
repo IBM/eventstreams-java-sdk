@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -27,7 +27,9 @@ public class TopicDetail extends GenericModel {
   protected Long retentionMs;
   protected String cleanupPolicy;
   protected TopicConfigs configs;
-  protected List<ReplicaAssignment> replicaAssignments;
+  protected List<TopicDetailReplicaAssignmentsItem> replicaAssignments;
+
+  protected TopicDetail() { }
 
   /**
    * Gets the name.
@@ -100,7 +102,7 @@ public class TopicDetail extends GenericModel {
    *
    * @return the replicaAssignments
    */
-  public List<ReplicaAssignment> getReplicaAssignments() {
+  public List<TopicDetailReplicaAssignmentsItem> getReplicaAssignments() {
     return replicaAssignments;
   }
 }

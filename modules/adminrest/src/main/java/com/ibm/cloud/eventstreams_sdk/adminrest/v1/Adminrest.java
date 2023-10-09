@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,30 +12,45 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.25.0-2b3f843a-20210115-164628
+ * IBM OpenAPI SDK Code Generator Version: 3.76.0-ad3e6f96-20230724-172814
  */
 
 package com.ibm.cloud.eventstreams_sdk.adminrest.v1;
 
 import com.google.gson.JsonObject;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.AliveOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.BrokerDetail;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.BrokerSummary;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.Cluster;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.CreateQuotaOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.CreateTopicOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.DeleteConsumerGroupOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.DeleteQuotaOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.DeleteTopicOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.DeleteTopicRecordsOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetBrokerConfigOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetBrokerOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetClusterOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetConsumerGroupOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetMirroringActiveTopicsOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetMirroringTopicSelectionOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetQuotaOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetTopicOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GroupDetail;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GroupResetResultsItem;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ListBrokersOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ListConsumerGroupsOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ListQuotasOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ListTopicsOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.MirroringActiveTopics;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.MirroringTopicSelection;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.QuotaDetail;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.QuotaList;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ReplaceMirroringTopicSelectionOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.TopicDetail;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.UpdateTopicOptions;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.CreateQuotaOptions;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.DeleteQuotaOptions;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.EntityQuotasList;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetQuotaOptions;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ListQuotasOptions;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.QuotaDetail;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.UpdateConsumerGroupOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.UpdateQuotaOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.UpdateTopicOptions;
 import com.ibm.cloud.eventstreams_sdk.common.SdkCommon;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ResponseConverter;
@@ -52,13 +67,14 @@ import java.util.Map.Entry;
 /**
  * The administration REST API for IBM Event Streams on Cloud.
  *
- * @version v1
+ * API Version: 1.3.0
  */
 public class Adminrest extends BaseService {
 
+  /**
+   * Default service name used when configuring the `Adminrest` client.
+   */
   public static final String DEFAULT_SERVICE_NAME = "adminrest";
-
-  public static final String DEFAULT_SERVICE_URL = "https://adminrest.cloud.ibm.com";
 
  /**
    * Class method which constructs an instance of the `Adminrest` client.
@@ -93,7 +109,6 @@ public class Adminrest extends BaseService {
    */
   public Adminrest(String serviceName, Authenticator authenticator) {
     super(serviceName, authenticator);
-    setServiceUrl(DEFAULT_SERVICE_URL);
   }
 
   /**
@@ -112,7 +127,6 @@ public class Adminrest extends BaseService {
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
-    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (createTopicOptions.name() != null) {
       contentJson.addProperty("name", createTopicOptions.name());
@@ -140,6 +154,31 @@ public class Adminrest extends BaseService {
    */
   public ServiceCall<Void> createTopic() {
     return createTopic(null);
+  }
+
+  /**
+   * Basic health check for Admin REST API.
+   *
+   * @param aliveOptions the {@link AliveOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> alive(AliveOptions aliveOptions) {
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/alive"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("adminrest", "v1", "alive");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Basic health check for Admin REST API.
+   *
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> alive() {
+    return alive(null);
   }
 
   /**
@@ -229,7 +268,6 @@ public class Adminrest extends BaseService {
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
-    builder.header("Accept", "application/json");
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -252,7 +290,6 @@ public class Adminrest extends BaseService {
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
-    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (updateTopicOptions.newTotalPartitionCount() != null) {
       contentJson.addProperty("new_total_partition_count", updateTopicOptions.newTotalPartitionCount());
@@ -262,6 +299,413 @@ public class Adminrest extends BaseService {
     }
     builder.bodyJson(contentJson);
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete records before the given offset on a topic.
+   *
+   * Delete records before the given offset on a topic.
+   *
+   * @param deleteTopicRecordsOptions the {@link DeleteTopicRecordsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteTopicRecords(DeleteTopicRecordsOptions deleteTopicRecordsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteTopicRecordsOptions,
+      "deleteTopicRecordsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("topic_name", deleteTopicRecordsOptions.topicName());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/admin/topics/{topic_name}/records", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("adminrest", "v1", "deleteTopicRecords");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    final JsonObject contentJson = new JsonObject();
+    if (deleteTopicRecordsOptions.recordsToDelete() != null) {
+      contentJson.add("records_to_delete", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(deleteTopicRecordsOptions.recordsToDelete()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create a new quota.
+   *
+   * Create a new quota.
+   *
+   * @param createQuotaOptions the {@link CreateQuotaOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> createQuota(CreateQuotaOptions createQuotaOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createQuotaOptions,
+      "createQuotaOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("entity_name", createQuotaOptions.entityName());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/admin/quotas/{entity_name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("adminrest", "v1", "createQuota");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    final JsonObject contentJson = new JsonObject();
+    if (createQuotaOptions.producerByteRate() != null) {
+      contentJson.addProperty("producer_byte_rate", createQuotaOptions.producerByteRate());
+    }
+    if (createQuotaOptions.consumerByteRate() != null) {
+      contentJson.addProperty("consumer_byte_rate", createQuotaOptions.consumerByteRate());
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Update a quota.
+   *
+   * Update an entity's quota.
+   *
+   * @param updateQuotaOptions the {@link UpdateQuotaOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> updateQuota(UpdateQuotaOptions updateQuotaOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(updateQuotaOptions,
+      "updateQuotaOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("entity_name", updateQuotaOptions.entityName());
+    RequestBuilder builder = RequestBuilder.patch(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/admin/quotas/{entity_name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("adminrest", "v1", "updateQuota");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    final JsonObject contentJson = new JsonObject();
+    if (updateQuotaOptions.producerByteRate() != null) {
+      contentJson.addProperty("producer_byte_rate", updateQuotaOptions.producerByteRate());
+    }
+    if (updateQuotaOptions.consumerByteRate() != null) {
+      contentJson.addProperty("consumer_byte_rate", updateQuotaOptions.consumerByteRate());
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a quota.
+   *
+   * Delete an entity's quota.
+   *
+   * @param deleteQuotaOptions the {@link DeleteQuotaOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteQuota(DeleteQuotaOptions deleteQuotaOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteQuotaOptions,
+      "deleteQuotaOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("entity_name", deleteQuotaOptions.entityName());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/admin/quotas/{entity_name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("adminrest", "v1", "deleteQuota");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get quota information for an entity.
+   *
+   * Get quota information for an entity.
+   *
+   * @param getQuotaOptions the {@link GetQuotaOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link QuotaDetail}
+   */
+  public ServiceCall<QuotaDetail> getQuota(GetQuotaOptions getQuotaOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getQuotaOptions,
+      "getQuotaOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("entity_name", getQuotaOptions.entityName());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/admin/quotas/{entity_name}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("adminrest", "v1", "getQuota");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<QuotaDetail> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<QuotaDetail>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List each entity's quota information.
+   *
+   * List each entity's quota information.
+   *
+   * @param listQuotasOptions the {@link ListQuotasOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link QuotaList}
+   */
+  public ServiceCall<QuotaList> listQuotas(ListQuotasOptions listQuotasOptions) {
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/admin/quotas"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("adminrest", "v1", "listQuotas");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<QuotaList> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<QuotaList>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List each entity's quota information.
+   *
+   * List each entity's quota information.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link QuotaList}
+   */
+  public ServiceCall<QuotaList> listQuotas() {
+    return listQuotas(null);
+  }
+
+  /**
+   * Get a list of brokers in the cluster.
+   *
+   * Get a list of brokers in the cluster.
+   *
+   * @param listBrokersOptions the {@link ListBrokersOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link List}
+   */
+  public ServiceCall<List<BrokerSummary>> listBrokers(ListBrokersOptions listBrokersOptions) {
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/admin/brokers"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("adminrest", "v1", "listBrokers");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<List<BrokerSummary>> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<List<BrokerSummary>>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get a list of brokers in the cluster.
+   *
+   * Get a list of brokers in the cluster.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link List}
+   */
+  public ServiceCall<List<BrokerSummary>> listBrokers() {
+    return listBrokers(null);
+  }
+
+  /**
+   * Get detailed information for a single broker.
+   *
+   * Get detailed information for a single broker.
+   *
+   * @param getBrokerOptions the {@link GetBrokerOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link BrokerDetail}
+   */
+  public ServiceCall<BrokerDetail> getBroker(GetBrokerOptions getBrokerOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getBrokerOptions,
+      "getBrokerOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("broker_id", String.valueOf(getBrokerOptions.brokerId()));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/admin/brokers/{broker_id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("adminrest", "v1", "getBroker");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<BrokerDetail> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<BrokerDetail>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get all configuration parameters for a single broker.
+   *
+   * Get all configuration parameters for a single broker.
+   *
+   * @param getBrokerConfigOptions the {@link GetBrokerConfigOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link BrokerDetail}
+   */
+  public ServiceCall<BrokerDetail> getBrokerConfig(GetBrokerConfigOptions getBrokerConfigOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getBrokerConfigOptions,
+      "getBrokerConfigOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("broker_id", String.valueOf(getBrokerConfigOptions.brokerId()));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/admin/brokers/{broker_id}/configs", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("adminrest", "v1", "getBrokerConfig");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (getBrokerConfigOptions.configFilter() != null) {
+      builder.query("config_filter", String.valueOf(getBrokerConfigOptions.configFilter()));
+    }
+    if (getBrokerConfigOptions.verbose() != null) {
+      builder.query("verbose", String.valueOf(getBrokerConfigOptions.verbose()));
+    }
+    ResponseConverter<BrokerDetail> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<BrokerDetail>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get information about the cluster.
+   *
+   * Get information about the cluster.
+   *
+   * @param getClusterOptions the {@link GetClusterOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link Cluster}
+   */
+  public ServiceCall<Cluster> getCluster(GetClusterOptions getClusterOptions) {
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/admin/cluster"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("adminrest", "v1", "getCluster");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<Cluster> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Cluster>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get information about the cluster.
+   *
+   * Get information about the cluster.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link Cluster}
+   */
+  public ServiceCall<Cluster> getCluster() {
+    return getCluster(null);
+  }
+
+  /**
+   * Get a list of consumer group IDs.
+   *
+   * Get a list of consumer group IDs.
+   *
+   * @param listConsumerGroupsOptions the {@link ListConsumerGroupsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link List}
+   */
+  public ServiceCall<List<String>> listConsumerGroups(ListConsumerGroupsOptions listConsumerGroupsOptions) {
+    if (listConsumerGroupsOptions == null) {
+      listConsumerGroupsOptions = new ListConsumerGroupsOptions.Builder().build();
+    }
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/admin/consumergroups"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("adminrest", "v1", "listConsumerGroups");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (listConsumerGroupsOptions.groupFilter() != null) {
+      builder.query("group_filter", String.valueOf(listConsumerGroupsOptions.groupFilter()));
+    }
+    if (listConsumerGroupsOptions.perPage() != null) {
+      builder.query("per_page", String.valueOf(listConsumerGroupsOptions.perPage()));
+    }
+    if (listConsumerGroupsOptions.page() != null) {
+      builder.query("page", String.valueOf(listConsumerGroupsOptions.page()));
+    }
+    ResponseConverter<List<String>> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<List<String>>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get a list of consumer group IDs.
+   *
+   * Get a list of consumer group IDs.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link List}
+   */
+  public ServiceCall<List<String>> listConsumerGroups() {
+    return listConsumerGroups(null);
+  }
+
+  /**
+   * Get detailed information on a consumer group.
+   *
+   * Get detailed information on a consumer group.
+   *
+   * @param getConsumerGroupOptions the {@link GetConsumerGroupOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link GroupDetail}
+   */
+  public ServiceCall<GroupDetail> getConsumerGroup(GetConsumerGroupOptions getConsumerGroupOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getConsumerGroupOptions,
+      "getConsumerGroupOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("group_id", getConsumerGroupOptions.groupId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/admin/consumergroups/{group_id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("adminrest", "v1", "getConsumerGroup");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<GroupDetail> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<GroupDetail>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a consumer group.
+   *
+   * Delete a consumer group.
+   *
+   * @param deleteConsumerGroupOptions the {@link DeleteConsumerGroupOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteConsumerGroup(DeleteConsumerGroupOptions deleteConsumerGroupOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteConsumerGroupOptions,
+      "deleteConsumerGroupOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("group_id", deleteConsumerGroupOptions.groupId());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/admin/consumergroups/{group_id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("adminrest", "v1", "deleteConsumerGroup");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Update the offsets of a consumer group.
+   *
+   * Update the offsets of a consumer group using various modes, eg. latest, earliest, datetime,etc.
+   *
+   * @param updateConsumerGroupOptions the {@link UpdateConsumerGroupOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link List}
+   */
+  public ServiceCall<List<GroupResetResultsItem>> updateConsumerGroup(UpdateConsumerGroupOptions updateConsumerGroupOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(updateConsumerGroupOptions,
+      "updateConsumerGroupOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("group_id", updateConsumerGroupOptions.groupId());
+    RequestBuilder builder = RequestBuilder.patch(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/admin/consumergroups/{group_id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("adminrest", "v1", "updateConsumerGroup");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    if (updateConsumerGroupOptions.topic() != null) {
+      contentJson.addProperty("topic", updateConsumerGroupOptions.topic());
+    }
+    if (updateConsumerGroupOptions.mode() != null) {
+      contentJson.addProperty("mode", updateConsumerGroupOptions.mode());
+    }
+    if (updateConsumerGroupOptions.value() != null) {
+      contentJson.addProperty("value", updateConsumerGroupOptions.value());
+    }
+    if (updateConsumerGroupOptions.execute() != null) {
+      contentJson.addProperty("execute", updateConsumerGroupOptions.execute());
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<List<GroupResetResultsItem>> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<List<GroupResetResultsItem>>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -364,143 +808,5 @@ public class Adminrest extends BaseService {
   public ServiceCall<MirroringActiveTopics> getMirroringActiveTopics() {
     return getMirroringActiveTopics(null);
   }
-
-    /**
-     * Create a new quota.
-     *
-     * Create a new quota.
-     *
-     * @param createQuotaOptions the {@link CreateQuotaOptions} containing the options for the call
-     * @return a {@link ServiceCall} with a void result
-     */
-    public ServiceCall<Void> createQuota(CreateQuotaOptions createQuotaOptions) {
-        com.ibm.cloud.sdk.core.util.Validator.notNull(createQuotaOptions,
-                "createQuotaOptions cannot be null");
-        Map<String, String> pathParamsMap = new HashMap<>();
-        pathParamsMap.put("entity_name", createQuotaOptions.entityName());
-        RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/admin/quotas/{entity_name}", pathParamsMap));
-        Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("adminrest", "v1", "createQuota");
-        for (Entry<String, String> header : sdkHeaders.entrySet()) {
-            builder.header(header.getKey(), header.getValue());
-        }
-        final JsonObject contentJson = new JsonObject();
-        if (createQuotaOptions.producerByteRate() != null) {
-            contentJson.addProperty("producer_byte_rate", createQuotaOptions.producerByteRate());
-        }
-        if (createQuotaOptions.consumerByteRate() != null) {
-            contentJson.addProperty("consumer_byte_rate", createQuotaOptions.consumerByteRate());
-        }
-        builder.bodyJson(contentJson);
-        ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
-        return createServiceCall(builder.build(), responseConverter);
-    }
-
-    /**
-     * Update a quota.
-     *
-     * Update an entity's quota.
-     *
-     * @param updateQuotaOptions the {@link UpdateQuotaOptions} containing the options for the call
-     * @return a {@link ServiceCall} with a void result
-     */
-    public ServiceCall<Void> updateQuota(UpdateQuotaOptions updateQuotaOptions) {
-        com.ibm.cloud.sdk.core.util.Validator.notNull(updateQuotaOptions,
-                "updateQuotaOptions cannot be null");
-        Map<String, String> pathParamsMap = new HashMap<>();
-        pathParamsMap.put("entity_name", updateQuotaOptions.entityName());
-        RequestBuilder builder = RequestBuilder.patch(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/admin/quotas/{entity_name}", pathParamsMap));
-        Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("adminrest", "v1", "updateQuota");
-        for (Entry<String, String> header : sdkHeaders.entrySet()) {
-            builder.header(header.getKey(), header.getValue());
-        }
-        final JsonObject contentJson = new JsonObject();
-        if (updateQuotaOptions.producerByteRate() != null) {
-            contentJson.addProperty("producer_byte_rate", updateQuotaOptions.producerByteRate());
-        }
-        if (updateQuotaOptions.consumerByteRate() != null) {
-            contentJson.addProperty("consumer_byte_rate", updateQuotaOptions.consumerByteRate());
-        }
-        builder.bodyJson(contentJson);
-        ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
-        return createServiceCall(builder.build(), responseConverter);
-    }
-
-    /**
-     * Delete a quota.
-     *
-     * Delete an entity's quota.
-     *
-     * @param deleteQuotaOptions the {@link DeleteQuotaOptions} containing the options for the call
-     * @return a {@link ServiceCall} with a void result
-     */
-    public ServiceCall<Void> deleteQuota(DeleteQuotaOptions deleteQuotaOptions) {
-        com.ibm.cloud.sdk.core.util.Validator.notNull(deleteQuotaOptions,
-                "deleteQuotaOptions cannot be null");
-        Map<String, String> pathParamsMap = new HashMap<>();
-        pathParamsMap.put("entity_name", deleteQuotaOptions.entityName());
-        RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/admin/quotas/{entity_name}", pathParamsMap));
-        Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("adminrest", "v1", "deleteQuota");
-        for (Entry<String, String> header : sdkHeaders.entrySet()) {
-            builder.header(header.getKey(), header.getValue());
-        }
-        ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
-        return createServiceCall(builder.build(), responseConverter);
-    }
-
-    /**
-     * Get quota information for an entity.
-     *
-     * Get quota information for an entity.
-     *
-     * @param getQuotaOptions the {@link GetQuotaOptions} containing the options for the call
-     * @return a {@link ServiceCall} with a result of type {@link QuotaDetail}
-     */
-    public ServiceCall<QuotaDetail> getQuota(GetQuotaOptions getQuotaOptions) {
-        com.ibm.cloud.sdk.core.util.Validator.notNull(getQuotaOptions,
-                "getQuotaOptions cannot be null");
-        Map<String, String> pathParamsMap = new HashMap<>();
-        pathParamsMap.put("entity_name", getQuotaOptions.entityName());
-        RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/admin/quotas/{entity_name}", pathParamsMap));
-        Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("adminrest", "v1", "getQuota");
-        for (Entry<String, String> header : sdkHeaders.entrySet()) {
-            builder.header(header.getKey(), header.getValue());
-        }
-        builder.header("Accept", "application/json");
-        ResponseConverter<QuotaDetail> responseConverter =
-                ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<QuotaDetail>() { }.getType());
-        return createServiceCall(builder.build(), responseConverter);
-    }
-
-    /**
-     * List each entity's quota information.
-     *
-     * List each entity's quota information.
-     *
-     * @param listQuotasOptions the {@link ListQuotasOptions} containing the options for the call
-     * @return a {@link ServiceCall} with a result of type {@link EntityQuotasList}
-     */
-    public ServiceCall<EntityQuotasList> listQuotas(ListQuotasOptions listQuotasOptions) {
-        RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/admin/quotas"));
-        Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("adminrest", "v1", "listQuotas");
-        for (Entry<String, String> header : sdkHeaders.entrySet()) {
-            builder.header(header.getKey(), header.getValue());
-        }
-        builder.header("Accept", "application/json");
-        ResponseConverter<EntityQuotasList> responseConverter =
-                ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<EntityQuotasList>() { }.getType());
-        return createServiceCall(builder.build(), responseConverter);
-    }
-
-    /**
-     * List each entity's quota information.
-     *
-     * List each entity's quota information.
-     *
-     * @return a {@link ServiceCall} with a result of type {@link EntityQuotasList}
-     */
-    public ServiceCall<EntityQuotasList> listQuotas() {
-        return listQuotas(null);
-    }
-
 
 }

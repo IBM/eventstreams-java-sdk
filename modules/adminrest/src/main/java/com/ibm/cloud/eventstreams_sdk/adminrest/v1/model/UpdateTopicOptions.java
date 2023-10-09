@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,7 +24,7 @@ public class UpdateTopicOptions extends GenericModel {
 
   protected String topicName;
   protected Long newTotalPartitionCount;
-  protected List<ConfigUpdate> configs;
+  protected List<TopicUpdateRequestConfigsItem> configs;
 
   /**
    * Builder.
@@ -32,8 +32,13 @@ public class UpdateTopicOptions extends GenericModel {
   public static class Builder {
     private String topicName;
     private Long newTotalPartitionCount;
-    private List<ConfigUpdate> configs;
+    private List<TopicUpdateRequestConfigsItem> configs;
 
+    /**
+     * Instantiates a new Builder from an existing UpdateTopicOptions instance.
+     *
+     * @param updateTopicOptions the instance to initialize the Builder with
+     */
     private Builder(UpdateTopicOptions updateTopicOptions) {
       this.topicName = updateTopicOptions.topicName;
       this.newTotalPartitionCount = updateTopicOptions.newTotalPartitionCount;
@@ -70,11 +75,11 @@ public class UpdateTopicOptions extends GenericModel {
      * @param configs the new configs
      * @return the UpdateTopicOptions builder
      */
-    public Builder addConfigs(ConfigUpdate configs) {
+    public Builder addConfigs(TopicUpdateRequestConfigsItem configs) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(configs,
         "configs cannot be null");
       if (this.configs == null) {
-        this.configs = new ArrayList<ConfigUpdate>();
+        this.configs = new ArrayList<TopicUpdateRequestConfigsItem>();
       }
       this.configs.add(configs);
       return this;
@@ -109,11 +114,13 @@ public class UpdateTopicOptions extends GenericModel {
      * @param configs the configs
      * @return the UpdateTopicOptions builder
      */
-    public Builder configs(List<ConfigUpdate> configs) {
+    public Builder configs(List<TopicUpdateRequestConfigsItem> configs) {
       this.configs = configs;
       return this;
     }
   }
+
+  protected UpdateTopicOptions() { }
 
   protected UpdateTopicOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.topicName,
@@ -135,7 +142,7 @@ public class UpdateTopicOptions extends GenericModel {
   /**
    * Gets the topicName.
    *
-   * The topic name for the topic to be listed.
+   * The topic name for the topic to be updated.
    *
    * @return the topicName
    */
@@ -146,7 +153,7 @@ public class UpdateTopicOptions extends GenericModel {
   /**
    * Gets the newTotalPartitionCount.
    *
-   * The new partition number to be increased.
+   * The new partition number to be increased to.
    *
    * @return the newTotalPartitionCount
    */
@@ -157,12 +164,12 @@ public class UpdateTopicOptions extends GenericModel {
   /**
    * Gets the configs.
    *
-   * The config properties to be updated for the topic. Valid config keys are 'cleanup.policy', 'retention.ms',
+   * The config properties to be updated for the topic. Valid config names are 'cleanup.policy', 'retention.ms',
    * 'retention.bytes', 'segment.bytes', 'segment.ms', 'segment.index.bytes'.
    *
    * @return the configs
    */
-  public List<ConfigUpdate> configs() {
+  public List<TopicUpdateRequestConfigsItem> configs() {
     return configs;
   }
 }

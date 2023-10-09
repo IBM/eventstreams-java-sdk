@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,14 +20,8 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class TopicConfigs extends GenericModel {
 
-  @SerializedName("cleanup.policy")
-  protected String cleanupPolicy;
-  @SerializedName("min.insync.replicas")
-  protected String minInsyncReplicas;
   @SerializedName("retention.bytes")
   protected String retentionBytes;
-  @SerializedName("retention.ms")
-  protected String retentionMs;
   @SerializedName("segment.bytes")
   protected String segmentBytes;
   @SerializedName("segment.index.bytes")
@@ -35,27 +29,7 @@ public class TopicConfigs extends GenericModel {
   @SerializedName("segment.ms")
   protected String segmentMs;
 
-  /**
-   * Gets the cleanupPolicy.
-   *
-   * The value of config property 'cleanup.policy'.
-   *
-   * @return the cleanupPolicy
-   */
-  public String getCleanupPolicy() {
-    return cleanupPolicy;
-  }
-
-  /**
-   * Gets the minInsyncReplicas.
-   *
-   * The value of config property 'min.insync.replicas'.
-   *
-   * @return the minInsyncReplicas
-   */
-  public String getMinInsyncReplicas() {
-    return minInsyncReplicas;
-  }
+  protected TopicConfigs() { }
 
   /**
    * Gets the retentionBytes.
@@ -66,17 +40,6 @@ public class TopicConfigs extends GenericModel {
    */
   public String getRetentionBytes() {
     return retentionBytes;
-  }
-
-  /**
-   * Gets the retentionMs.
-   *
-   * The value of config property 'retention.ms'.
-   *
-   * @return the retentionMs
-   */
-  public String getRetentionMs() {
-    return retentionMs;
   }
 
   /**

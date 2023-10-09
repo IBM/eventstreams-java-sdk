@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,13 +13,11 @@
 
 package com.ibm.cloud.eventstreams_sdk.adminrest.v1.model;
 
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ConfigCreate;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.CreateTopicOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.TopicCreateRequestConfigsItem;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -34,22 +32,22 @@ public class CreateTopicOptionsTest {
 
   @Test
   public void testCreateTopicOptions() throws Throwable {
-    ConfigCreate configCreateModel = new ConfigCreate.Builder()
+    TopicCreateRequestConfigsItem topicCreateRequestConfigsItemModel = new TopicCreateRequestConfigsItem.Builder()
       .name("testString")
       .value("testString")
       .build();
-    assertEquals(configCreateModel.name(), "testString");
-    assertEquals(configCreateModel.value(), "testString");
+    assertEquals(topicCreateRequestConfigsItemModel.name(), "testString");
+    assertEquals(topicCreateRequestConfigsItemModel.value(), "testString");
 
     CreateTopicOptions createTopicOptionsModel = new CreateTopicOptions.Builder()
       .name("testString")
       .partitions(Long.valueOf("26"))
       .partitionCount(Long.valueOf("1"))
-      .configs(new java.util.ArrayList<ConfigCreate>(java.util.Arrays.asList(configCreateModel)))
+      .configs(java.util.Arrays.asList(topicCreateRequestConfigsItemModel))
       .build();
     assertEquals(createTopicOptionsModel.name(), "testString");
     assertEquals(createTopicOptionsModel.partitions(), Long.valueOf("26"));
     assertEquals(createTopicOptionsModel.partitionCount(), Long.valueOf("1"));
-    assertEquals(createTopicOptionsModel.configs(), new java.util.ArrayList<ConfigCreate>(java.util.Arrays.asList(configCreateModel)));
+    assertEquals(createTopicOptionsModel.configs(), java.util.Arrays.asList(topicCreateRequestConfigsItemModel));
   }
 }

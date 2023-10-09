@@ -98,6 +98,18 @@ public class CreateQuotaOptions extends GenericModel {
       this.consumerByteRate = consumerByteRate;
       return this;
     }
+
+    /**
+     * Set the quotaDetail.
+     *
+     * @param quotaDetail the quotaDetail
+     * @return the CreateQuotaOptions builder
+     */
+    public Builder quotaDetail(QuotaDetail quotaDetail) {
+      this.producerByteRate = quotaDetail.producerByteRate();
+      this.consumerByteRate = quotaDetail.consumerByteRate();
+      return this;
+    }
   }
 
   protected CreateQuotaOptions() { }
