@@ -13,6 +13,7 @@
 
 package com.ibm.cloud.eventstreams_sdk.adminrest.v1.model;
 
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.QuotaDetail;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -30,8 +31,18 @@ public class QuotaDetailTest {
 
   @Test
   public void testQuotaDetail() throws Throwable {
-    QuotaDetail quotaDetailModel = new QuotaDetail();
-    assertNull(quotaDetailModel.getProducerByteRate());
-    assertNull(quotaDetailModel.getConsumerByteRate());
+    QuotaDetail quotaDetailModel = new QuotaDetail.Builder()
+      .producerByteRate(Long.valueOf("1024"))
+      .consumerByteRate(Long.valueOf("1024"))
+      .build();
+    assertEquals(quotaDetailModel.producerByteRate(), Long.valueOf("1024"));
+    assertEquals(quotaDetailModel.consumerByteRate(), Long.valueOf("1024"));
+
+    String json = TestUtilities.serialize(quotaDetailModel);
+
+    QuotaDetail quotaDetailModelNew = TestUtilities.deserialize(json, QuotaDetail.class);
+    assertTrue(quotaDetailModelNew instanceof QuotaDetail);
+    assertEquals(quotaDetailModelNew.producerByteRate(), Long.valueOf("1024"));
+    assertEquals(quotaDetailModelNew.consumerByteRate(), Long.valueOf("1024"));
   }
 }

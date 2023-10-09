@@ -25,7 +25,76 @@ public class QuotaDetail extends GenericModel {
   @SerializedName("consumer_byte_rate")
   protected Long consumerByteRate;
 
+  /**
+   * Builder.
+   */
+  public static class Builder {
+    private Long producerByteRate;
+    private Long consumerByteRate;
+
+    /**
+     * Instantiates a new Builder from an existing QuotaDetail instance.
+     *
+     * @param quotaDetail the instance to initialize the Builder with
+     */
+    private Builder(QuotaDetail quotaDetail) {
+      this.producerByteRate = quotaDetail.producerByteRate;
+      this.consumerByteRate = quotaDetail.consumerByteRate;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a QuotaDetail.
+     *
+     * @return the new QuotaDetail instance
+     */
+    public QuotaDetail build() {
+      return new QuotaDetail(this);
+    }
+
+    /**
+     * Set the producerByteRate.
+     *
+     * @param producerByteRate the producerByteRate
+     * @return the QuotaDetail builder
+     */
+    public Builder producerByteRate(long producerByteRate) {
+      this.producerByteRate = producerByteRate;
+      return this;
+    }
+
+    /**
+     * Set the consumerByteRate.
+     *
+     * @param consumerByteRate the consumerByteRate
+     * @return the QuotaDetail builder
+     */
+    public Builder consumerByteRate(long consumerByteRate) {
+      this.consumerByteRate = consumerByteRate;
+      return this;
+    }
+  }
+
   protected QuotaDetail() { }
+
+  protected QuotaDetail(Builder builder) {
+    producerByteRate = builder.producerByteRate;
+    consumerByteRate = builder.consumerByteRate;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a QuotaDetail builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
 
   /**
    * Gets the producerByteRate.
@@ -34,7 +103,7 @@ public class QuotaDetail extends GenericModel {
    *
    * @return the producerByteRate
    */
-  public Long getProducerByteRate() {
+  public Long producerByteRate() {
     return producerByteRate;
   }
 
@@ -45,7 +114,7 @@ public class QuotaDetail extends GenericModel {
    *
    * @return the consumerByteRate
    */
-  public Long getConsumerByteRate() {
+  public Long consumerByteRate() {
     return consumerByteRate;
   }
 }

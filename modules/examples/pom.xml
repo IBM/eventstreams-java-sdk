@@ -6,7 +6,7 @@
     <parent>
         <artifactId>eventstreams-sdk</artifactId>
         <groupId>com.ibm.cloud</groupId>
-        <version>99-SNAPSHOT</version>
+        <version>1.3.0</version>
         <relativePath>../..</relativePath>
     </parent>
 
@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>eventstreams_sdk</artifactId>
+            <artifactId>eventstreams_sdk-adminrest</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
@@ -47,7 +47,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>2.3</version>
+                <version>3.5.0</version>
                 <configuration>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
                 </configuration>

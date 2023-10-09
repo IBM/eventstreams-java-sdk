@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -27,6 +27,11 @@ public class DeleteTopicOptions extends GenericModel {
   public static class Builder {
     private String topicName;
 
+    /**
+     * Instantiates a new Builder from an existing DeleteTopicOptions instance.
+     *
+     * @param deleteTopicOptions the instance to initialize the Builder with
+     */
     private Builder(DeleteTopicOptions deleteTopicOptions) {
       this.topicName = deleteTopicOptions.topicName;
     }
@@ -67,6 +72,8 @@ public class DeleteTopicOptions extends GenericModel {
     }
   }
 
+  protected DeleteTopicOptions() { }
+
   protected DeleteTopicOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.topicName,
       "topicName cannot be empty");
@@ -85,7 +92,7 @@ public class DeleteTopicOptions extends GenericModel {
   /**
    * Gets the topicName.
    *
-   * The topic name for the topic to be listed.
+   * The topic name for the topic to be deleted.
    *
    * @return the topicName
    */

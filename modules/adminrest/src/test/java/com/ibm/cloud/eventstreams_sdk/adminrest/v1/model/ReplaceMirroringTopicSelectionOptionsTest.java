@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -17,8 +17,6 @@ import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ReplaceMirroringTopicSe
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -34,8 +32,8 @@ public class ReplaceMirroringTopicSelectionOptionsTest {
   @Test
   public void testReplaceMirroringTopicSelectionOptions() throws Throwable {
     ReplaceMirroringTopicSelectionOptions replaceMirroringTopicSelectionOptionsModel = new ReplaceMirroringTopicSelectionOptions.Builder()
-      .includes(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .includes(java.util.Arrays.asList("testString"))
       .build();
-    assertEquals(replaceMirroringTopicSelectionOptionsModel.includes(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(replaceMirroringTopicSelectionOptionsModel.includes(), java.util.Arrays.asList("testString"));
   }
 }

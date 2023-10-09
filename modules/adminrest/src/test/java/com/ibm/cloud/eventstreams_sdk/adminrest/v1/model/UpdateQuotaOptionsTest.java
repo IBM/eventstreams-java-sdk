@@ -13,6 +13,7 @@
 
 package com.ibm.cloud.eventstreams_sdk.adminrest.v1.model;
 
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.UpdateQuotaOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -32,8 +33,8 @@ public class UpdateQuotaOptionsTest {
   public void testUpdateQuotaOptions() throws Throwable {
     UpdateQuotaOptions updateQuotaOptionsModel = new UpdateQuotaOptions.Builder()
       .entityName("testString")
-      .producerByteRate(1024)
-      .consumerByteRate(1024)
+      .producerByteRate(Long.valueOf("1024"))
+      .consumerByteRate(Long.valueOf("1024"))
       .build();
     assertEquals(updateQuotaOptionsModel.entityName(), "testString");
     assertEquals(updateQuotaOptionsModel.producerByteRate(), Long.valueOf("1024"));
