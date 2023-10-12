@@ -42,3 +42,9 @@ package-lock.json
 
 # Examples depedency file
 /**/dependency-reduced-pom.xml
+
+# files produced by "npm install" commands during build
+package-lock.json
+node_modules/
+
+.vscode/

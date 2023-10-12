@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,6 +31,11 @@ public class ListTopicsOptions extends GenericModel {
     private Long perPage;
     private Long page;
 
+    /**
+     * Instantiates a new Builder from an existing ListTopicsOptions instance.
+     *
+     * @param listTopicsOptions the instance to initialize the Builder with
+     */
     private Builder(ListTopicsOptions listTopicsOptions) {
       this.topicFilter = listTopicsOptions.topicFilter;
       this.perPage = listTopicsOptions.perPage;
@@ -86,6 +91,8 @@ public class ListTopicsOptions extends GenericModel {
     }
   }
 
+  protected ListTopicsOptions() { }
+
   protected ListTopicsOptions(Builder builder) {
     topicFilter = builder.topicFilter;
     perPage = builder.perPage;
@@ -118,7 +125,7 @@ public class ListTopicsOptions extends GenericModel {
   /**
    * Gets the perPage.
    *
-   * The number of topic names to be returns.
+   * The number of topic names to be returned.
    *
    * @return the perPage
    */

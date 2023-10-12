@@ -4,11 +4,11 @@
 
     <artifactId>eventstreams-sdk</artifactId>
     <name>Event Streams Java SDK</name>
-    <description>Java Client Library to access the IBM Cloud Eventstreams SDK</description>
+    <description>Java Client Library to access the IBM Cloud Event Streams SDK</description>
     <url>https://github.com/IBM/__URL_NAME__</url>
 
     <groupId>com.ibm.cloud</groupId>
-    <version>99-SNAPSHOT</version>
+    <version>1.3.0</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -17,29 +17,28 @@
             of the SDK generator used to generate your SDK code.
             See this link for details: https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Compatibility-Chart
         -->
-        <sdk-core-version>9.5.4</sdk-core-version>
+        <sdk-core-version>9.18.4</sdk-core-version>
 
         <git-repository-name>__URL_NAME__</git-repository-name>
 
-        <testng-version>7.1.0</testng-version>
-        <okhttp3-version>4.9.0</okhttp3-version>
-        <surefire-version>3.0.0-M3</surefire-version>
-        <jacoco-plugin-version>0.8.5</jacoco-plugin-version>
+        <testng-version>7.8.0</testng-version>
+        <okhttp3-version>4.11.0</okhttp3-version>
+        <surefire-version>3.1.2</surefire-version>
+        <jacoco-plugin-version>0.8.10</jacoco-plugin-version>
         <bintray-plugin-version>1.5.20191113165555</bintray-plugin-version>
-        <maven-deploy-plugin-version>3.0.0-M1</maven-deploy-plugin-version>
-        <maven-source-plugin-version>3.1.0</maven-source-plugin-version>
-        <maven-shade-plugin-version>3.2.2</maven-shade-plugin-version>
-        <maven-jar-plugin-version>3.2.0</maven-jar-plugin-version>
-        <maven-javadoc-plugin-version>3.1.1</maven-javadoc-plugin-version>
-        <maven-compiler-plugin-version>3.8.1</maven-compiler-plugin-version>
-        <maven-site-plugin-version>3.7.1</maven-site-plugin-version>
-        <maven-checkstyle-plugin-version>3.1.0</maven-checkstyle-plugin-version>
-        <maven-reports-plugin-version>3.0.0</maven-reports-plugin-version>
-        <maven-failsafe-plugin-version>3.0.0-M4</maven-failsafe-plugin-version>
-        <maven-buildnumber-plugin-version>1.4</maven-buildnumber-plugin-version>
-        <powermock-version>2.0.5</powermock-version>
-        <mockito-version>3.2.4</mockito-version>
-        <slf4j-version>1.7.28</slf4j-version>
+        <maven-deploy-plugin-version>3.1.1</maven-deploy-plugin-version>
+        <maven-source-plugin-version>3.3.0</maven-source-plugin-version>
+        <maven-shade-plugin-version>3.5.0</maven-shade-plugin-version>
+        <maven-jar-plugin-version>3.3.0</maven-jar-plugin-version>
+        <maven-javadoc-plugin-version>3.5.0</maven-javadoc-plugin-version>
+        <maven-compiler-plugin-version>3.11.0</maven-compiler-plugin-version>
+        <maven-site-plugin-version>4.0.0-M8</maven-site-plugin-version>
+        <maven-checkstyle-plugin-version>3.3.0</maven-checkstyle-plugin-version>
+        <maven-reports-plugin-version>3.4.5</maven-reports-plugin-version>
+        <maven-failsafe-plugin-version>3.1.2</maven-failsafe-plugin-version>
+        <maven-buildnumber-plugin-version>3.2.0</maven-buildnumber-plugin-version>
+        <powermock-version>2.0.9</powermock-version>
+        <slf4j-version>2.0.7</slf4j-version>
 
         <!-- Deployment-related properties -->
         <bintray.org>ibm-cloud-sdks</bintray.org>
@@ -54,11 +53,10 @@
         <!-- >>> List each service's module here -->
         <module>modules/adminrest</module>
 
+        <module>modules/schemaregistry</module>
+
         <!-- >>> Uncomment the following line if you want to build the examples -->
         <module>modules/examples</module>
-
-        <!-- This module should always be listed last -->
-        <module>modules/coverage-reports</module>
     </modules>
 
     <licenses>
@@ -93,6 +91,11 @@
         <repository>
             <id>na-artifactory-ibmcloud-sdks</id>
             <url>https://na.artifactory.swg-devops.com:443/artifactory/wcp-ibmcloud-sdks-team-maven-local/</url>
+        </repository>
+
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2/</url>
         </repository>
 
         <repository>
@@ -211,8 +214,8 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin-version}</version>
                     <configuration>
-                        <source>1.8</source>
-                        <target>1.8</target>
+                        <source>11</source>
+                        <target>11</target>
                     </configuration>
                 </plugin>
                 <plugin>
