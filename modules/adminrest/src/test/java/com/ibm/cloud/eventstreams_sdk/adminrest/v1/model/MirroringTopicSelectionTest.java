@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -17,8 +17,6 @@ import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.MirroringTopicSelection
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -34,9 +32,9 @@ public class MirroringTopicSelectionTest {
   @Test
   public void testMirroringTopicSelection() throws Throwable {
     MirroringTopicSelection mirroringTopicSelectionModel = new MirroringTopicSelection.Builder()
-      .includes(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .includes(java.util.Arrays.asList("testString"))
       .build();
-    assertEquals(mirroringTopicSelectionModel.includes(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(mirroringTopicSelectionModel.includes(), java.util.Arrays.asList("testString"));
 
     String json = TestUtilities.serialize(mirroringTopicSelectionModel);
 

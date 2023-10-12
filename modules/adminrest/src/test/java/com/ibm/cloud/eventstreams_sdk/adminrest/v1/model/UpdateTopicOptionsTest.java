@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,13 +13,11 @@
 
 package com.ibm.cloud.eventstreams_sdk.adminrest.v1.model;
 
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ConfigUpdate;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.TopicUpdateRequestConfigsItem;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.UpdateTopicOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -34,23 +32,23 @@ public class UpdateTopicOptionsTest {
 
   @Test
   public void testUpdateTopicOptions() throws Throwable {
-    ConfigUpdate configUpdateModel = new ConfigUpdate.Builder()
+    TopicUpdateRequestConfigsItem topicUpdateRequestConfigsItemModel = new TopicUpdateRequestConfigsItem.Builder()
       .name("testString")
       .value("testString")
       .resetToDefault(true)
       .build();
-    assertEquals(configUpdateModel.name(), "testString");
-    assertEquals(configUpdateModel.value(), "testString");
-    assertEquals(configUpdateModel.resetToDefault(), Boolean.valueOf(true));
+    assertEquals(topicUpdateRequestConfigsItemModel.name(), "testString");
+    assertEquals(topicUpdateRequestConfigsItemModel.value(), "testString");
+    assertEquals(topicUpdateRequestConfigsItemModel.resetToDefault(), Boolean.valueOf(true));
 
     UpdateTopicOptions updateTopicOptionsModel = new UpdateTopicOptions.Builder()
       .topicName("testString")
       .newTotalPartitionCount(Long.valueOf("26"))
-      .configs(new java.util.ArrayList<ConfigUpdate>(java.util.Arrays.asList(configUpdateModel)))
+      .configs(java.util.Arrays.asList(topicUpdateRequestConfigsItemModel))
       .build();
     assertEquals(updateTopicOptionsModel.topicName(), "testString");
     assertEquals(updateTopicOptionsModel.newTotalPartitionCount(), Long.valueOf("26"));
-    assertEquals(updateTopicOptionsModel.configs(), new java.util.ArrayList<ConfigUpdate>(java.util.Arrays.asList(configUpdateModel)));
+    assertEquals(updateTopicOptionsModel.configs(), java.util.Arrays.asList(topicUpdateRequestConfigsItemModel));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

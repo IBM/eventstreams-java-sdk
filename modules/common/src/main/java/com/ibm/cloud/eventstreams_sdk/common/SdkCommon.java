@@ -46,10 +46,18 @@ public class SdkCommon {
     private SdkCommon() {
     }
 
+    /**
+     * Returns the SDK project's version.
+     * @return a string containing the version (e.g. "1.2.3")
+     */
     public static String getVersion() {
         return version;
     }
 
+    /**
+     * Returns the SDK project's name.
+     * @return a string containing the name (e.g. "platform-services-java-sdk")
+     */
     public static String getProjectName() {
         return projectName;
     }

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,7 +25,7 @@ public class CreateTopicOptions extends GenericModel {
   protected String name;
   protected Long partitions;
   protected Long partitionCount;
-  protected List<ConfigCreate> configs;
+  protected List<TopicCreateRequestConfigsItem> configs;
 
   /**
    * Builder.
@@ -34,8 +34,13 @@ public class CreateTopicOptions extends GenericModel {
     private String name;
     private Long partitions;
     private Long partitionCount;
-    private List<ConfigCreate> configs;
+    private List<TopicCreateRequestConfigsItem> configs;
 
+    /**
+     * Instantiates a new Builder from an existing CreateTopicOptions instance.
+     *
+     * @param createTopicOptions the instance to initialize the Builder with
+     */
     private Builder(CreateTopicOptions createTopicOptions) {
       this.name = createTopicOptions.name;
       this.partitions = createTopicOptions.partitions;
@@ -64,11 +69,11 @@ public class CreateTopicOptions extends GenericModel {
      * @param configs the new configs
      * @return the CreateTopicOptions builder
      */
-    public Builder addConfigs(ConfigCreate configs) {
+    public Builder addConfigs(TopicCreateRequestConfigsItem configs) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(configs,
         "configs cannot be null");
       if (this.configs == null) {
-        this.configs = new ArrayList<ConfigCreate>();
+        this.configs = new ArrayList<TopicCreateRequestConfigsItem>();
       }
       this.configs.add(configs);
       return this;
@@ -114,11 +119,13 @@ public class CreateTopicOptions extends GenericModel {
      * @param configs the configs
      * @return the CreateTopicOptions builder
      */
-    public Builder configs(List<ConfigCreate> configs) {
+    public Builder configs(List<TopicCreateRequestConfigsItem> configs) {
       this.configs = configs;
       return this;
     }
   }
+
+  protected CreateTopicOptions() { }
 
   protected CreateTopicOptions(Builder builder) {
     name = builder.name;
@@ -176,7 +183,7 @@ public class CreateTopicOptions extends GenericModel {
    *
    * @return the configs
    */
-  public List<ConfigCreate> configs() {
+  public List<TopicCreateRequestConfigsItem> configs() {
     return configs;
   }
 }

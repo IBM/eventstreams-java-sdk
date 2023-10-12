@@ -13,6 +13,7 @@
 
 package com.ibm.cloud.eventstreams_sdk.adminrest.v1.model;
 
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.DeleteQuotaOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
