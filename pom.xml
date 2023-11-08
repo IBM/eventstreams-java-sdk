@@ -55,6 +55,8 @@
 
         <module>modules/schemaregistry</module>
 
+        <module>modules/oauth-client</module>
+
         <!-- >>> Uncomment the following line if you want to build the examples -->
         <module>modules/examples</module>
     </modules>
