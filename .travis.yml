@@ -31,7 +31,7 @@ stages:
 before_install:
   - sudo apt-get update
   - env | grep TRAVIS
-  - pyenv global 3.10
+  #- pyenv global 3.10
 
 jobs:
   include:
