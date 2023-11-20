@@ -12,7 +12,11 @@
     <artifactId>adminrest-coverage-reports</artifactId>
 
     <name>Eventstreams SDK Coverage Reports</name>
-
+    <properties>
+	<!-- There is no need to publish this module's artifacts on maven central -->
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
+    </properties>
     <dependencies>
         <!-- 
             There should be a dependency for EACH module in the project.
@@ -32,13 +36,7 @@
     <build>
         <plugins>
             <!-- No need to deploy this artifact since it contains only coverage info -->
-            <plugin>
-                <groupId>com.carrotgarden.maven</groupId>
-                <artifactId>bintray-maven-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
+
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
