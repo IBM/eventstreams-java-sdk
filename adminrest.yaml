@@ -15,7 +15,7 @@ tags:
 info:
   title: IBM Event Streams Admin REST API
   description: The administration REST API for IBM Event Streams on Cloud.
-  version: 1.3.0
+  version: 1.3.1
   x-alternate-name: adminrest
   x-codegen-config:
     improvedNameFormattingV2: true
