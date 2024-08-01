@@ -3,15 +3,15 @@
     <!-- Update this section to reflect the correct values for your SDK project -->
     <parent>
         <!-- >>> Update this to reflect your parent project's artifact id -->
-        <artifactId>eventstreams_sdk</artifactId>
-        <groupId>com.ibm.cloud</groupId>
+        <artifactId>eventstreams</artifactId>
+        <groupId>com.ibm.eventstreams</groupId>
         <version>99-SNAPSHOT</version>
         <relativePath>../..</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <!-- >>> Replace this with the coverage-report module's artifactId (e.g. platform-services-coverage-reports) -->
-    <artifactId>eventstreams_sdk-coverage-reports</artifactId>
+    <artifactId>coverage-reports</artifactId>
 
     <!-- >>> Replace this with the coverage-report module's description -->
     <name>Event Streams SDK Coverage Reports</name>

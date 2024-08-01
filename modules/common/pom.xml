@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>eventstreams-sdk</artifactId>
-        <groupId>com.ibm.cloud</groupId>
+        <artifactId>eventstreams</artifactId>
+        <groupId>com.ibm.eventstreams</groupId>
         <version>1.3.1</version>
         <relativePath>../..</relativePath>
     </parent>
