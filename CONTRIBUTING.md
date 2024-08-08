@@ -5,7 +5,7 @@ please ask a question at
 
 # Issues
 If you encounter an issue with the project, you are welcome to submit a
-[bug report](https://github.com/IBM/eventstreams-java-sdk/issues).
+[bug report](<github-repo-url>/issues).
 Before that, please search for similar issues. It's possible that someone has already reported the problem.
 
 # General Information

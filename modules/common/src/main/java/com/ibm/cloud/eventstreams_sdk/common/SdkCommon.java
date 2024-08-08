@@ -36,8 +36,8 @@ public class SdkCommon {
     private static String projectName;
     private static String version;
 
-    // >>> Replace "eventstreams_sdk" with the parent project's artifactId (e.g. platform-services)
-    private static String parentArtifactId = "eventstreams_sdk";
+    // >>> Replace "my-services" with the parent project's artifactId (e.g. platform-services)
+    private static String parentArtifactId = "my-services";
 
     static {
         readBuildProperties();

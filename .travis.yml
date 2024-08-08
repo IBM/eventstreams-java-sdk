@@ -1,12 +1,19 @@
----
 language: java
-dist: jammy
+
+dist: focal
+
+# Remove this if using external Travis
+group: focal
 
 jdk:
-- openjdk11
+  - openjdk11
 
 notifications:
   email: true
+
+env:
+  global:
+    - MVN_ARGS="--settings build/.travis.settings.xml"
 
 branches:
   except:
@@ -16,64 +23,36 @@ cache:
   directories:
   - "$HOME/.m2"
 
-env:
-  global:
-    - MVN_ARGS="--settings build/.travis.settings.xml"
-
-stages:
-  - name: Build-Test
-# Uncomment these stages when you're ready to use them.
-#  - name: Semantic-Release
-#    if: (branch = main) AND (type IN (push, api)) AND (fork = false)
-#  - name: Publish-Release
-#    if: (tag IS present) AND (fork = false)
+jobs:
+  include:
+    - stage: Build & Test
+      script:
+        -  mvn clean verify $MVN_ARGS
+    - stage: Run Java System Test
+      env: API_FOLDER=tests
+    - env: API_FOLDER=apidocs
 
 before_install:
   - sudo apt-get update
-  - env | grep TRAVIS
+  - echo -e "machine github.ibm.com\n  login $GITHUB_ACCESS_TOKEN" > ~/.netrc
+  # Install maven - temporary until Travis focal image is fixed.
+  - wget https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz
+  - tar -zxf apache-maven-3.9.6-bin.tar.gz
+  - export MAVEN_HOME=$PWD/apache-maven-3.9.6
+  - export PATH=${MAVEN_HOME}/bin:$PATH
+  - which mvn
+  - mvn -v
 
-jobs:
-  include:
-    - stage: Build-Test
-      jdk: openjdk11
-      install: true
-      script:
-        - build/setMavenVersion.sh
-        - mvn verify -fae -DskipITs $MVN_ARGS
+install: true
 
-    - jdk: openjdk17
-      install: true
-      script:
-        - mvn verify -fae -DskipITs $MVN_ARGS
-
-# Uncomment these stages when you're ready to use them.
-#    - stage: Semantic-Release
-#      install:
-#        - nvm install 18
-#        - node --version
-#        - npm --version
-#        - npm install
-#        - pip install --user bump2version
-#      script:
-#        - npm run semantic-release
-#
-#    - stage: Publish-Release
-#      jdk: openjdk11
-#      name: Publish-Javadoc
-#      install: true
-#      script:
-#        - build/setMavenVersion.sh
-#        - mvn clean javadoc:aggregate $MVN_ARGS
-#        - build/publishJavadoc.sh
-#      after_success:
-#        - echo "Javadocs successfully published to gh-pages!"
-#
-#    - jdk: openjdk11
-#      name: Publish-To-Maven-Central
-#      install: true
-#      script:
-#        - build/setupSigning.sh
-#        - build/setMavenVersion.sh
-#        - mvn deploy $MVN_ARGS -DskipTests -P central
-#      after_success:
-#        - echo "Maven artifacts successfully published to Maven Central!"
+script:
+  - |
+    if [[ "$TRAVIS_PULL_REQUEST" == "false" ]]; then
+       echo "Running Java System Test using API folder: $API_FOLDER"
+       git clone https://github.ibm.com/CloudEngineering/sdkgen-systest.git
+       cd sdkgen-systest
+       ./install_scripts/install_deps_ubuntu.sh
+       ./setup_and_generate.sh -l ibm-java -t $TRAVIS_BRANCH -s -i $API_FOLDER
+    else
+       echo "Skipping systest stage for PR build."
+    fi
