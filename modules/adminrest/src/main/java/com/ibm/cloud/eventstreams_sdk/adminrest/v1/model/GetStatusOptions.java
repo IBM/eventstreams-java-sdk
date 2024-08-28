@@ -11,7 +11,19 @@
  * specific language governing permissions and limitations under the License.
  */
 
+package com.ibm.cloud.eventstreams_sdk.adminrest.v1.model;
+
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
+
 /**
- * IBM Event Streams Schema Registry v1.
+ * The getStatus options.
  */
-package com.ibm.cloud.eventstreams_sdk.schemaregistry.v1;
+public class GetStatusOptions extends GenericModel {
+
+  /**
+   * Construct a new instance of GetStatusOptions.
+   */
+  public GetStatusOptions() {
+  }
+}
+
