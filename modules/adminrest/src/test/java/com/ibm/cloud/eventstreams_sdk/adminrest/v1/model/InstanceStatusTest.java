@@ -11,10 +11,10 @@
  * specific language governing permissions and limitations under the License.
  */
 
-package com.ibm.cloud.eventstreams_sdk.schemaregistry.v1.model;
+package com.ibm.cloud.eventstreams_sdk.adminrest.v1.model;
 
-import com.ibm.cloud.eventstreams_sdk.schemaregistry.v1.model.ListVersionsOptions;
-import com.ibm.cloud.eventstreams_sdk.schemaregistry.v1.utils.TestUtilities;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.InstanceStatus;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -23,25 +23,15 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the ListVersionsOptions model.
+ * Unit test class for the InstanceStatus model.
  */
-public class ListVersionsOptionsTest {
+public class InstanceStatusTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testListVersionsOptions() throws Throwable {
-    ListVersionsOptions listVersionsOptionsModel = new ListVersionsOptions.Builder()
-      .id("testString")
-      .jsonformat("testString")
-      .build();
-    assertEquals(listVersionsOptionsModel.id(), "testString");
-    assertEquals(listVersionsOptionsModel.jsonformat(), "testString");
+  public void testInstanceStatus() throws Throwable {
+    InstanceStatus instanceStatusModel = new InstanceStatus();
+    assertNull(instanceStatusModel.getStatus());
   }
-
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testListVersionsOptionsError() throws Throwable {
-    new ListVersionsOptions.Builder().build();
-  }
-
 }
