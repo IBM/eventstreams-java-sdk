@@ -4,14 +4,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
+        <!-- >>> Replace this with the parent pom's artifactId -->
         <artifactId>eventstreams-sdk</artifactId>
         <groupId>com.ibm.cloud</groupId>
-        <version>1.3.1</version>
+        <version>1.3.0</version>
         <relativePath>../..</relativePath>
     </parent>
 
+    <!-- >>> Replace this with the common module's artifactId (e.g. platform-services-common) -->
     <artifactId>common</artifactId>
 
+    <!-- >>> Replace this with the common module's description (e.g. Platform Services Common Library) -->
     <name>Event Streams SDK Common Library</name>
     <packaging>jar</packaging>
 
@@ -26,13 +29,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-api-mockito2</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-module-testng</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
