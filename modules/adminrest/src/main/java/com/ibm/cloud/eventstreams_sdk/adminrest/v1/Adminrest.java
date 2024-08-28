@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.76.0-ad3e6f96-20230724-172814
+ * IBM OpenAPI SDK Code Generator Version: 3.93.0-c40121e6-20240729-182103
  */
 
 package com.ibm.cloud.eventstreams_sdk.adminrest.v1;
@@ -35,9 +35,11 @@ import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetConsumerGroupOptions
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetMirroringActiveTopicsOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetMirroringTopicSelectionOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetQuotaOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetStatusOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetTopicOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GroupDetail;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GroupResetResultsItem;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.InstanceStatus;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ListBrokersOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ListConsumerGroupsOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ListQuotasOptions;
@@ -807,6 +809,37 @@ public class Adminrest extends BaseService {
    */
   public ServiceCall<MirroringActiveTopics> getMirroringActiveTopics() {
     return getMirroringActiveTopics(null);
+  }
+
+  /**
+   * Get the status of the instance.
+   *
+   * Get the status of the instance.
+   *
+   * @param getStatusOptions the {@link GetStatusOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link InstanceStatus}
+   */
+  public ServiceCall<InstanceStatus> getStatus(GetStatusOptions getStatusOptions) {
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/admin/status"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("adminrest", "v1", "getStatus");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<InstanceStatus> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<InstanceStatus>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get the status of the instance.
+   *
+   * Get the status of the instance.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link InstanceStatus}
+   */
+  public ServiceCall<InstanceStatus> getStatus() {
+    return getStatus(null);
   }
 
 }
