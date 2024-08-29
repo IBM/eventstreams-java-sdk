@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.76.0-ad3e6f96-20230724-172814
+ * IBM OpenAPI SDK Code Generator Version: 3.93.0-c40121e6-20240729-182103
  */
 
 package com.ibm.cloud.eventstreams_sdk.schemaregistry.v1;
@@ -54,7 +54,7 @@ import java.util.Map.Entry;
 /**
  * IBM Event Streams schema registry management.
  *
- * API Version: 1.3.1
+ * API Version: 1.4.1
  */
 public class Schemaregistry extends BaseService {
 
