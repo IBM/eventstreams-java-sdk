@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.cloud.eventstreams_sdk.adminrest.v1;
 
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.Adminrest;
@@ -32,9 +33,11 @@ import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetConsumerGroupOptions
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetMirroringActiveTopicsOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetMirroringTopicSelectionOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetQuotaOptions;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetStatusOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetTopicOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GroupDetail;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GroupResetResultsItem;
+import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.InstanceStatus;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ListBrokersOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ListConsumerGroupsOptions;
 import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ListQuotasOptions;
@@ -1220,6 +1223,48 @@ public class AdminrestTest {
 
     adminrestService.disableRetries();
     testGetMirroringActiveTopicsWOptions();
+  }
+
+  // Test the getStatus operation with a valid options model parameter
+  @Test
+  public void testGetStatusWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"status\": \"available\"}";
+    String getStatusPath = "/admin/status";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetStatusOptions model
+    GetStatusOptions getStatusOptionsModel = new GetStatusOptions();
+
+    // Invoke getStatus() with a valid options model and verify the result
+    Response<InstanceStatus> response = adminrestService.getStatus(getStatusOptionsModel).execute();
+    assertNotNull(response);
+    InstanceStatus responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getStatusPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the getStatus operation with and without retries enabled
+  @Test
+  public void testGetStatusWRetries() throws Throwable {
+    adminrestService.enableRetries(4, 30);
+    testGetStatusWOptions();
+
+    adminrestService.disableRetries();
+    testGetStatusWOptions();
   }
 
   // Perform setup needed before each test method
