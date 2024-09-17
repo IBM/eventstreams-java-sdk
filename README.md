@@ -76,15 +76,15 @@ artifact coordinates (group id, artifact id and version) for the service, like t
 
 ```xml
 <dependency>
-    <groupId>com.ibm.cloud</groupId>
-    <artifactId>eventstreams_sdk</artifactId>
+    <groupId>com.ibm.cloud.eventstreams</groupId>
+    <artifactId>eventstreams</artifactId>
     <version>1.3.1</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.cloud:eventstreams_sdk:1.3.1'
+'com.ibm.cloud.eventstreams:eventstreams:1.3.1'
 ```
 
 ## Using the SDK
@@ -214,29 +214,28 @@ The following sections explain how the REST API works with examples.
 
 ```java
 // Code Setup
-package com.ibm.cloud.adminrest.v1;
+package com.ibm.cloud.eventstreams.adminrest.v1;
 
 import java.util.Arrays;
 import java.util.List;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.Adminrest;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ListTopicsOptions;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.TopicDetail;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.TopicDetailReplicaAssignmentsItem;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.CreateTopicOptions;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.DeleteTopicOptions;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.UpdateTopicOptions;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetMirroringActiveTopicsOptions;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.MirroringActiveTopics;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.ReplaceMirroringTopicSelectionOptions;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.MirroringTopicSelection;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetMirroringTopicSelectionOptions;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.CreateQuotaOptions;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.DeleteQuotaOptions;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.GetQuotaOptions;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.EntityQuotaDetail;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.QuotaDetail;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.QuotaList;
-import com.ibm.cloud.eventstreams_sdk.adminrest.v1.model.UpdateQuotaOptions;
+import com.ibm.cloud.eventstreams.adminrest.v1.model.ListTopicsOptions;
+import com.ibm.cloud.eventstreams.adminrest.v1.model.TopicDetail;
+import com.ibm.cloud.eventstreams.adminrest.v1.model.TopicDetailReplicaAssignmentsItem;
+import com.ibm.cloud.eventstreams.adminrest.v1.model.CreateTopicOptions;
+import com.ibm.cloud.eventstreams.adminrest.v1.model.DeleteTopicOptions;
+import com.ibm.cloud.eventstreams.adminrest.v1.model.UpdateTopicOptions;
+import com.ibm.cloud.eventstreams.adminrest.v1.model.GetMirroringActiveTopicsOptions;
+import com.ibm.cloud.eventstreams.adminrest.v1.model.MirroringActiveTopics;
+import com.ibm.cloud.eventstreams.adminrest.v1.model.ReplaceMirroringTopicSelectionOptions;
+import com.ibm.cloud.eventstreams.adminrest.v1.model.MirroringTopicSelection;
+import com.ibm.cloud.eventstreams.adminrest.v1.model.GetMirroringTopicSelectionOptions;
+import com.ibm.cloud.eventstreams.adminrest.v1.model.CreateQuotaOptions;
+import com.ibm.cloud.eventstreams.adminrest.v1.model.DeleteQuotaOptions;
+import com.ibm.cloud.eventstreams.adminrest.v1.model.GetQuotaOptions;
+import com.ibm.cloud.eventstreams.adminrest.v1.model.EntityQuotaDetail;
+import com.ibm.cloud.eventstreams.adminrest.v1.model.QuotaDetail;
+import com.ibm.cloud.eventstreams.adminrest.v1.model.QuotaList;
+import com.ibm.cloud.eventstreams.adminrest.v1.model.UpdateQuotaOptions;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.BasicAuthenticator;
 import com.ibm.cloud.sdk.core.security.BearerTokenAuthenticator;

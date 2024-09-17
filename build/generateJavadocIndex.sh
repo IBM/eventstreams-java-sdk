@@ -17,7 +17,7 @@ echo '<!DOCTYPE html>
         <h1>IBM Cloud Event Streams SDK Java SDK Documentation</h1>
     </div>
 
-    <p><a href="https://cloud.ibm.com/apidocs?category=eventstreams_sdk">Event Streams SDK Info</a>
+    <p><a href="https://cloud.ibm.com/apidocs?category=eventstreams">Event Streams SDK Info</a>
         | <a href="https://github.com/IBM/eventstreams-java-sdk">GitHub</a>
     </p>
 
