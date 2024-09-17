@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <!-- >>> Replace this with your service category (e.g. "platform-services") -->
-  <artifactId>eventstreams-sdk</artifactId>
+  <artifactId>eventstreams</artifactId>
 
   <!-- >>> Update this field to reflect your project -->
   <name>Event Streams Java SDK</name>
@@ -15,7 +15,7 @@
   <!-- >>> Update this field to reflect your project's github URL -->
   <url>https://github.com/IBM/__URL_NAME__</url>
 
-  <groupId>com.ibm.cloud</groupId>
+  <groupId>com.ibm.cloud.eventstreams</groupId>
   <version>1.3.1</version>
   <packaging>pom</packaging>
 
@@ -139,13 +139,13 @@
       <!-- Each module (except "common") should depend on this artifact -->
       <dependency>
         <!-- >>> Replace this with the common module's artifactId -->
-        <artifactId>adminrest-common</artifactId>
+        <artifactId>common</artifactId>
         <groupId>${project.groupId}</groupId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
         <!-- >>> Replace this with the common module's artifactId -->
-        <artifactId>adminrest-common</artifactId>
+        <artifactId>common</artifactId>
         <groupId>${project.groupId}</groupId>
         <version>${project.version}</version>
         <type>test-jar</type>

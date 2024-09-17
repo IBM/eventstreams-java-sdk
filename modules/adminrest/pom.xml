@@ -3,13 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>eventstreams-sdk</artifactId>
-        <groupId>com.ibm.cloud</groupId>
+        <artifactId>eventstreams</artifactId>
+        <groupId>com.ibm.cloud.eventstreams</groupId>
         <version>1.3.1</version>
         <relativePath>../..</relativePath>
     </parent>
 
-    <artifactId>eventstreams_sdk-adminrest</artifactId>
+    <artifactId>adminrest</artifactId>
 
     <name>IBM Cloud Event Streams Java SDK</name>
     <packaging>jar</packaging>
