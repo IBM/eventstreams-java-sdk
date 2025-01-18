@@ -73,31 +73,31 @@ abstract class IAMTokenRetrieverFactory {
 
         String grantType = jou.validateString(GRANT_TYPE_CONFIG, true);
         if (grantType.equals(GRANT_TYPE_APIKEY)) {
-        	logger.debug("creating IAMAPIKeyTokenRetriever");
-        	String apikey = jou.validateString(GRANT_EXT_APIKEY, true);
-            return new IAMAPIKeyTokenRetriever(grantType, apikey, 
-            		tokenEndpointUrl.toString(), sslSocketFactory,
-                    cu.validateLong(SASL_LOGIN_RETRY_BACKOFF_MS), cu.validateLong(SASL_LOGIN_RETRY_BACKOFF_MAX_MS),
-                    cu.validateInteger(SASL_LOGIN_CONNECT_TIMEOUT_MS, false),
-                    cu.validateInteger(SASL_LOGIN_READ_TIMEOUT_MS, false));
+            logger.debug("creating IAMAPIKeyTokenRetriever");
+            String apikey = jou.validateString(GRANT_EXT_APIKEY, true);
+            return new IAMAPIKeyTokenRetriever(grantType, apikey,
+            tokenEndpointUrl.toString(), sslSocketFactory,
+            cu.validateLong(SASL_LOGIN_RETRY_BACKOFF_MS), cu.validateLong(SASL_LOGIN_RETRY_BACKOFF_MAX_MS),
+            cu.validateInteger(SASL_LOGIN_CONNECT_TIMEOUT_MS, false),
+            cu.validateInteger(SASL_LOGIN_READ_TIMEOUT_MS, false));
         } else if (grantType.equals(GRANT_TYPE_CRTOKEN)) {
-        	logger.debug("creating IAMTrustedProfileTokenRetriever");
-        	String crTokenFilePath = jou.validateString(GRANT_EXT_CRTOKEN, true);
+            logger.debug("creating IAMTrustedProfileTokenRetriever");
+            String crTokenFilePath = jou.validateString(GRANT_EXT_CRTOKEN, true);
             String trustedProfileIdFilePath = jou.validateString(GRANT_EXT_PROFILEID, true);
-        	return new IAMTrustedProfileTokenRetriever(grantType, crTokenFilePath, trustedProfileIdFilePath, 
-        			tokenEndpointUrl.toString(), sslSocketFactory,
-                    cu.validateLong(SASL_LOGIN_RETRY_BACKOFF_MS), cu.validateLong(SASL_LOGIN_RETRY_BACKOFF_MAX_MS),
-                    cu.validateInteger(SASL_LOGIN_CONNECT_TIMEOUT_MS, false),
-                    cu.validateInteger(SASL_LOGIN_READ_TIMEOUT_MS, false));
+            return new IAMTrustedProfileTokenRetriever(grantType, crTokenFilePath, trustedProfileIdFilePath,
+            tokenEndpointUrl.toString(), sslSocketFactory,
+            cu.validateLong(SASL_LOGIN_RETRY_BACKOFF_MS), cu.validateLong(SASL_LOGIN_RETRY_BACKOFF_MAX_MS),
+            cu.validateInteger(SASL_LOGIN_CONNECT_TIMEOUT_MS, false),
+            cu.validateInteger(SASL_LOGIN_READ_TIMEOUT_MS, false));
         } else if (grantType.equals(GRANT_TYPE_AUTHZ)) {
-        	logger.debug("creating IAMDelegationTokenHandler");
-        	String operatorApiKey = jou.validateString(GRANT_EXT_APIKEY, true);
+            logger.debug("creating IAMDelegationTokenHandler");
+            String operatorApiKey = jou.validateString(GRANT_EXT_APIKEY, true);
             String desiredIamId = jou.validateString(GRANT_EXT_DESIRED_IAM_ID, true);
-        	return new IAMDelegationTokenRetriever(grantType, operatorApiKey, desiredIamId, 
-        			tokenEndpointUrl.toString(), sslSocketFactory,
-                    cu.validateLong(SASL_LOGIN_RETRY_BACKOFF_MS), cu.validateLong(SASL_LOGIN_RETRY_BACKOFF_MAX_MS),
-                    cu.validateInteger(SASL_LOGIN_CONNECT_TIMEOUT_MS, false),
-                    cu.validateInteger(SASL_LOGIN_READ_TIMEOUT_MS, false));
+            return new IAMDelegationTokenRetriever(grantType, operatorApiKey, desiredIamId,
+            tokenEndpointUrl.toString(), sslSocketFactory,
+            cu.validateLong(SASL_LOGIN_RETRY_BACKOFF_MS), cu.validateLong(SASL_LOGIN_RETRY_BACKOFF_MAX_MS),
+            cu.validateInteger(SASL_LOGIN_CONNECT_TIMEOUT_MS, false),
+            cu.validateInteger(SASL_LOGIN_READ_TIMEOUT_MS, false));
         } else {
             throw new IllegalArgumentException(String.format("unsupported grant_type:'%s'", grantType));
         }
