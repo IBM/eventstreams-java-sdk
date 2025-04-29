@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.com/IBM/eventstreams-java-sdk.svg?&branch=main)](https://travis-ci.com/IBM/eventstreams-java-sdk)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-# IBM Cloud Event Streams Java SDK Version 1.3.1
+# IBM Cloud Event Streams Java SDK Version 1.4.0
 
 ## Introduction
 
@@ -60,7 +60,7 @@ Service Name | Artifact Coordinates
 * Java 8 or above.
 
 ## Installation
-The current version of this SDK is: 1.3.1
+The current version of this SDK is: 1.4.0
 
 Each service's artifact coordinates are listed in the table above.
 
@@ -78,13 +78,13 @@ artifact coordinates (group id, artifact id and version) for the service, like t
 <dependency>
     <groupId>com.ibm.cloud.eventstreams</groupId>
     <artifactId>eventstreams</artifactId>
-    <version>1.3.1</version>
+    <version>1.4.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.cloud.eventstreams:eventstreams:1.3.1'
+'com.ibm.cloud.eventstreams:eventstreams:1.4.0'
 ```
 
 ## Using the SDK

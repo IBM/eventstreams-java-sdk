@@ -69,7 +69,7 @@ import java.util.Map.Entry;
 /**
  * The administration REST API for IBM Event Streams on Cloud.
  *
- * API Version: 1.3.1
+ * API Version: 1.4.0
  */
 public class Adminrest extends BaseService {
 

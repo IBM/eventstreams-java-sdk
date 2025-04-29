@@ -16,7 +16,7 @@ adding below in `pom.xml`'s dependencies
 <dependency>
     <groupId>com.ibm.cloud.eventstreams</groupId>
     <artifactId>oauth-client</artifactId>
-    <version>1.3.1</version>
+    <version>1.4.0</version>
 </dependency>
 ```
 
@@ -25,5 +25,5 @@ adding below in `pom.xml`'s dependencies
 adding below in `build.gradle`'s dependencies
 
 ```gradle
-implementation com.ibm.cloud.eventstreams.oauth-client:1.3.1
+implementation com.ibm.cloud.eventstreams.oauth-client:1.4.0
 ```

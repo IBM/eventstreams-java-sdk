@@ -37,8 +37,13 @@ abstract class IAMTokenRetrieverFactory {
     public static final String IAM_TOKEN_ENDPOINT = "https://iam.cloud.ibm.com/identity/token";
     public static final String GRANT_TYPE_CONFIG = "grant_type";
     public static final String GRANT_TYPE_APIKEY = "urn:ibm:params:oauth:grant-type:apikey";
+    public static final String GRANT_TYPE_CRTOKEN = "urn:ibm:params:oauth:grant-type:cr-token";
+    public static final String GRANT_TYPE_AUTHZ = "urn:ibm:params:oauth:grant-type:iam-authz";
     public static final String GRANT_EXT_APIKEY = "apikey";
-    public static final String GRANT_EXT_TOKEN = "access_token";
+    public static final String GRANT_EXT_CRTOKEN = "cr_token";
+    public static final String GRANT_EXT_PROFILEID = "profile_id";
+    public static final String GRANT_EXT_DESIRED_IAM_ID = "desired_iam_id";
+    public static final String GRANT_EXT_ACCESS_TOKEN = "access_token";
     public static final String SASL_MECHANISM_OAUTH = "OAUTHBEARER";
 
     public static AccessTokenRetriever create(
@@ -62,19 +67,37 @@ abstract class IAMTokenRetrieverFactory {
         }
 
         JaasOptionsUtils jou = new JaasOptionsUtils(jaasConfig);
-        String grantType = jou.validateString(GRANT_TYPE_CONFIG, true);
-        String apikey = jou.validateString(GRANT_EXT_APIKEY, true);
-
         SSLSocketFactory sslSocketFactory = null;
-
         if (jou.shouldCreateSSLSocketFactory(tokenEndpointUrl))
             sslSocketFactory = jou.createSSLSocketFactory();
 
+        String grantType = jou.validateString(GRANT_TYPE_CONFIG, true);
         if (grantType.equals(GRANT_TYPE_APIKEY)) {
-            return new IAMAPIKeyTokenRetriever(grantType, apikey, tokenEndpointUrl.toString(), sslSocketFactory,
-                    cu.validateLong(SASL_LOGIN_RETRY_BACKOFF_MS), cu.validateLong(SASL_LOGIN_RETRY_BACKOFF_MAX_MS),
-                    cu.validateInteger(SASL_LOGIN_CONNECT_TIMEOUT_MS, false),
-                    cu.validateInteger(SASL_LOGIN_READ_TIMEOUT_MS, false));
+            logger.debug("creating IAMAPIKeyTokenRetriever");
+            String apikey = jou.validateString(GRANT_EXT_APIKEY, true);
+            return new IAMAPIKeyTokenRetriever(grantType, apikey,
+            tokenEndpointUrl.toString(), sslSocketFactory,
+            cu.validateLong(SASL_LOGIN_RETRY_BACKOFF_MS), cu.validateLong(SASL_LOGIN_RETRY_BACKOFF_MAX_MS),
+            cu.validateInteger(SASL_LOGIN_CONNECT_TIMEOUT_MS, false),
+            cu.validateInteger(SASL_LOGIN_READ_TIMEOUT_MS, false));
+        } else if (grantType.equals(GRANT_TYPE_CRTOKEN)) {
+            logger.debug("creating IAMTrustedProfileTokenRetriever");
+            String crTokenFilePath = jou.validateString(GRANT_EXT_CRTOKEN, true);
+            String trustedProfileIdFilePath = jou.validateString(GRANT_EXT_PROFILEID, true);
+            return new IAMTrustedProfileTokenRetriever(grantType, crTokenFilePath, trustedProfileIdFilePath,
+            tokenEndpointUrl.toString(), sslSocketFactory,
+            cu.validateLong(SASL_LOGIN_RETRY_BACKOFF_MS), cu.validateLong(SASL_LOGIN_RETRY_BACKOFF_MAX_MS),
+            cu.validateInteger(SASL_LOGIN_CONNECT_TIMEOUT_MS, false),
+            cu.validateInteger(SASL_LOGIN_READ_TIMEOUT_MS, false));
+        } else if (grantType.equals(GRANT_TYPE_AUTHZ)) {
+            logger.debug("creating IAMDelegationTokenHandler");
+            String operatorApiKey = jou.validateString(GRANT_EXT_APIKEY, true);
+            String desiredIamId = jou.validateString(GRANT_EXT_DESIRED_IAM_ID, true);
+            return new IAMDelegationTokenRetriever(grantType, operatorApiKey, desiredIamId,
+            tokenEndpointUrl.toString(), sslSocketFactory,
+            cu.validateLong(SASL_LOGIN_RETRY_BACKOFF_MS), cu.validateLong(SASL_LOGIN_RETRY_BACKOFF_MAX_MS),
+            cu.validateInteger(SASL_LOGIN_CONNECT_TIMEOUT_MS, false),
+            cu.validateInteger(SASL_LOGIN_READ_TIMEOUT_MS, false));
         } else {
             throw new IllegalArgumentException(String.format("unsupported grant_type:'%s'", grantType));
         }
