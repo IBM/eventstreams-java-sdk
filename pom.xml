@@ -19,14 +19,6 @@
   <version>1.4.0</version>
   <packaging>pom</packaging>
 
-  <distributionManagement>
-    <repository>
-      <id>jfrog</id>
-      <name>artifactory</name>
-      <url>https://na.artifactory.swg-devops.com/artifactory/mhub-maven-local</url>
-    </repository>
-  </distributionManagement>
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -87,11 +79,10 @@
     
     <module>modules/schemaregistry</module>
 
-    <module>modules/oauth-client</module>
-
     <!-- This module should always be listed last -->
     <!-- >>> Uncomment the following line if you want to build the examples -->
     <module>modules/examples</module>
+    <module>oauth-client</module>
   </modules>
 
   <licenses>
@@ -242,11 +233,6 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-gpg-plugin</artifactId>
           <version>${maven-gpg-plugin-version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-deploy-plugin</artifactId>
-          <version>${maven-deploy-plugin-version}</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -416,6 +402,22 @@
       </plugins>
     </pluginManagement>
     <plugins>
+      <!-- Disable default maven-deploy-plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
