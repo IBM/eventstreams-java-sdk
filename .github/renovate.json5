@@ -1,0 +1,11 @@
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: ['config:recommended'],
+  packageRules: [
+    {
+      matchPackageNames: ['org.apache.kafka:kafka-clients'],
+      matchUpdateTypes: ['major'],
+      enabled: false,
+    },
+  ],
+}
