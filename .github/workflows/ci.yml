@@ -14,7 +14,7 @@ env:
 jobs:
   build-test:
     name: Build-Test (JDK ${{ matrix.jdk }})
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
