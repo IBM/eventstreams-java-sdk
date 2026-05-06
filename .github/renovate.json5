@@ -3,14 +3,15 @@
   extends: ['config:recommended'],
   packageRules: [
     {
+      description: 'Keep kafka-clients tracking their current major version',
       matchPackageNames: ['org.apache.kafka:kafka-clients'],
       matchUpdateTypes: ['major'],
       enabled: false,
     },
     {
-      description: 'Checkstyle 12.3.1 is the last version to support JDK 11',
+      description: 'Checkstyle 11.0.0 and newer require JDK 17',
       matchPackageNames: ['com.puppycrawl.tools:checkstyle'],
-      allowedVersions: '<=12.3.1',
+      allowedVersions: '<11.0.0',
     },
   ],
 }
