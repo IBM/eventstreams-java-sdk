@@ -7,5 +7,10 @@
       matchUpdateTypes: ['major'],
       enabled: false,
     },
+    {
+      description: 'Checkstyle 12.3.1 is the last version to support JDK 11',
+      matchPackageNames: ['com.puppycrawl.tools:checkstyle'],
+      allowedVersions: '<=12.3.1',
+    },
   ],
 }
