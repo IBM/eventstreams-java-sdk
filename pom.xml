@@ -56,7 +56,7 @@
     <maven-checkstyle-plugin-version>3.6.0</maven-checkstyle-plugin-version>
     <checkstyle-version>10.12.3</checkstyle-version>
     <maven-reports-plugin-version>3.9.0</maven-reports-plugin-version>
-    <maven-failsafe-plugin-version>3.1.2</maven-failsafe-plugin-version>
+    <maven-failsafe-plugin-version>3.5.5</maven-failsafe-plugin-version>
     <maven-buildnumber-plugin-version>3.3.0</maven-buildnumber-plugin-version>
     <slf4j-version>2.0.17</slf4j-version>
 
