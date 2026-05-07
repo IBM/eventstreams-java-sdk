@@ -8,7 +8,7 @@
       <id>jfrog</id>
     </server>
     <server>
-      <id>ossrh</id>
+      <id>central</id>
       <username>${ossrh_username}</username>
       <password>${ossrh_password}</password>
     </server>
