@@ -46,7 +46,7 @@
     <surefire-version>3.5.5</surefire-version>
     <jacoco-plugin-version>0.8.14</jacoco-plugin-version>
     <maven-deploy-plugin-version>3.1.4</maven-deploy-plugin-version>
-    <nexus-staging-plugin-version>1.7.0</nexus-staging-plugin-version>
+    <central-publishing-maven-plugin>0.9.0</central-publishing-maven-plugin>
     <maven-gpg-plugin-version>3.2.8</maven-gpg-plugin-version>
     <maven-source-plugin-version>3.4.0</maven-source-plugin-version>
     <maven-shade-plugin-version>3.6.2</maven-shade-plugin-version>
@@ -84,7 +84,7 @@
 
     <!-- >>> List each service's module here -->
     <module>modules/adminrest</module>
-    
+
     <module>modules/schemaregistry</module>
 
     <module>modules/oauth-client</module>
@@ -237,8 +237,8 @@
         </plugin>
         <plugin>
           <groupId>org.sonatype.plugins</groupId>
-          <artifactId>nexus-staging-maven-plugin</artifactId>
-          <version>${nexus-staging-plugin-version}</version>
+          <artifactId>central-publishing-maven-plugin</artifactId>
+          <version>${central-publishing-maven-plugin}</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -508,9 +508,9 @@
           <!-- We don't deploy snapshot releases -->
         </snapshotRepository>
         <repository>
-          <!-- This is where the nexus staging plugin will publish artifacts -->
+          <!-- This is where the sonatype staging plugin will publish artifacts -->
           <id>ossrh</id>
-          <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+          <url>https://central.sonatype.com</url>
         </repository>
       </distributionManagement>
 
@@ -518,13 +518,11 @@
         <plugins>
           <plugin>
             <groupId>org.sonatype.plugins</groupId>
-            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <artifactId>central-publishing-maven-plugin</artifactId>
             <extensions>true</extensions>
             <configuration>
-              <serverId>ossrh</serverId>
-              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-              <autoReleaseAfterClose>true</autoReleaseAfterClose>
-              <keepStagingRepositoryOnCloseRuleFailure>true</keepStagingRepositoryOnCloseRuleFailure>
+              <publishingServerId>ossrh</publishingServerId>
+               <autoPublish>true</autoPublish>
             </configuration>
           </plugin>
           <plugin>
