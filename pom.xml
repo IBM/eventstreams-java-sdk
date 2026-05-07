@@ -84,7 +84,7 @@
 
     <!-- >>> List each service's module here -->
     <module>modules/adminrest</module>
-
+    
     <module>modules/schemaregistry</module>
 
     <module>modules/oauth-client</module>
@@ -503,17 +503,6 @@
       <!-- For this profile, we'll get dependencies from maven central -->
       <repositories></repositories>
 
-      <distributionManagement>
-        <snapshotRepository>
-          <!-- We don't deploy snapshot releases -->
-        </snapshotRepository>
-        <repository>
-          <!-- This is where the central publishing plugin will publish artifacts -->
-          <id>central</id>
-          <url>https://central.sonatype.com/api/v1/publisher</url>
-        </repository>
-      </distributionManagement>
-
       <build>
         <plugins>
           <plugin>
@@ -523,7 +512,7 @@
             <configuration>
               <publishingServerId>central</publishingServerId>
               <autoPublish>true</autoPublish>
-              <waitUntil>published</waitUntil>
+              <waitUntil>validated</waitUntil>
             </configuration>
           </plugin>
           <plugin>
